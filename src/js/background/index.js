@@ -20,15 +20,16 @@ chrome.runtime.onMessage.addListener(
                 console.log(siteList)
                 console.log(siteList.split('\n').filter((val) => currentURL.includes(val)).length, currentURL)
                 sendResponse(!!siteList.split('\n').filter((val) => currentURL.includes(val)).length)
-                // sendResponse(false)
                 break;
             case 'WRITE_LOG':
-                // INCOMPLETE LOG WRITING LOGIC
-                chrome.storage.sync.set({
-                    logs: [
-                        request.data
-                    ]
-                });
+                chrome.storage.sync.get(['logs'], (items) => {
+                    chrome.storage.sync.set({
+                        logs: [
+                            request.data,
+                            ...items.logs
+                        ]
+                    });        
+                })
                 break;
             case 'CLOSE_TAB':
                 chrome.tabs.getSelected(null, function(tab) { 

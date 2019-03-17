@@ -10,22 +10,22 @@
     "manifest_version": 2,
     "background": {
         "scripts": [
-            "./js/background.js"
+            "./build/js/background.js"
         ],
         "persistent": false
     },
     "browser_action": {
-        "default_popup": "./html/popup.html"
+        "default_popup": "./build/html/popup.html"
     },
-    "options_page": "./html/options.html",
+    "options_page": "./build/html/options.html",
     "content_scripts": [
         {
           "matches": [
             "http://*/*",
             "https://*/*"
           ],
-          "js": ["./js/main.js"],
-          "css": ["./css/main.css"]
+          "js": ["./build/js/main.js"],
+          "css": ["./build/css/main.css"]
         }
       ]
 }

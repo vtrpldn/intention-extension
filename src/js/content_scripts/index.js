@@ -1,3 +1,5 @@
+require('../../css/main.scss')
+
 chrome.runtime.sendMessage({ type: "GET_PAGE_STATUS" }, function (response) {
     run(response)
 });
@@ -29,16 +31,34 @@ const run = (status) => {
         fragment.appendChild(elWrapper);
         document.body.appendChild(fragment);
 
-        setTimeout( () => {
+        setTimeout(() => {
             elWrapper.classList.add('active')
         }, 0)
 
         elSubmit.addEventListener('click', () => {
-            alert('heheheita')
+            // tis but an ugly mock
+            let data = {
+                timestamp: JSON.stringify(new Date()),
+                reason: elInputReason.value,
+                time: elInputTime.value
+            }
+
+            // write log
+            chrome.runtime.sendMessage({ type: 'WRITE_LOG', data }, function () {
+                console.log('callback do writelog')
+            })
+            
+            // start timer
+            setTimeout( () => {
+                chrome.runtime.sendMessage({ type: 'CLOSE_TAB' }, function (response) {
+                    console.log('close tab', response)
+                })
+            }, elInputTime.value)
+
+            // close window
+            elWrapper.style.display = 'none'
         })
-        
 
     }
 
-    console.log(status)
 }

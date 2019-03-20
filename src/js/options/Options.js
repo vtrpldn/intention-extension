@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import LogTable from './components/LogTable/LogTable'
 
-class Main extends React.Component {
+class Options extends React.Component {
 
     constructor() {
         super()
@@ -44,7 +44,6 @@ class Main extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 <h2>Options</h2>
@@ -59,7 +58,7 @@ class Main extends React.Component {
                     <div>
                         Usage log
                     </div>
-                    <LogTable logs={this.state.logs} />
+                    <LogTable logs={this.state.logs !== undefined ? this.state.logs : []} />
                 </div>
             </div>
         )
@@ -68,4 +67,4 @@ class Main extends React.Component {
 
 const app = document.createElement('div');
 document.body.appendChild(app);
-ReactDOM.render(<Main />, app);
+ReactDOM.render(<Options />, app);

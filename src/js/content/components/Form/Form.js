@@ -5,7 +5,7 @@ class Form extends Component {
     super()
     this.state = {
         reason: '',
-        time: 0
+        timer: 0
     }
   }
 
@@ -15,9 +15,9 @@ class Form extends Component {
       })
   }
 
-  changeTime(e) {
+  changeTimer(e) {
       this.setState({
-          time: e.target.value
+          timer: e.target.value
       })
   }
 
@@ -26,7 +26,7 @@ class Form extends Component {
     let data = {
         timestamp: JSON.stringify(new Date()),
         reason: this.state.reason,
-        time: this.state.time
+        time: this.state.timer
     }
 
     // write log
@@ -35,13 +35,10 @@ class Form extends Component {
     })
 
     // start timer
-    setTimeout( () => {
-        chrome.runtime.sendMessage({ type: 'CLOSE_TAB' }, function (response) {
-            console.log('close tab', response)
-        })
-    }, this.state.time)
+    chrome.runtime.sendMessage({ type: 'SET_TIMER', timer: this.state.timer }, function(response) {
+      console.log('callback settimer', response)
+    })
 
-    // hide overlay ...
   }
 
   render () {
@@ -50,7 +47,7 @@ class Form extends Component {
         <div>Why do you want to use this website?</div>
         <input value={this.state.reason} onChange={(e)=>this.changeReason(e)} type='text' />
         <div>For how long?</div>
-        <input value={this.state.time} onChange={(e)=>this.changeTime(e)} type='number' />
+        <input value={this.state.timer} onChange={(e)=>this.changeTimer(e)} type='text' />
         <input onClick={ () => this.clickSave() } type='submit' value={`Start using ${window.location.hostname}`} />
       </div>
     )

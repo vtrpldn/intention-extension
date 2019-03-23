@@ -6,9 +6,9 @@ module.exports = {
   mode: 'production',
   entry: {
     background: './src/js/background/index.js',
-    popup: './src/js/popup/Popup.js',
-    options: './src/js/options/Options.js',
-    main: './src/js/content/App.js'
+    popup: './src/js/Popup.js',
+    options: './src/js/Options.js',
+    main: './src/js/App.js'
   },
   module: {
     rules: [

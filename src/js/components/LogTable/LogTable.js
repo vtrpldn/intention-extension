@@ -13,7 +13,7 @@ const LogTable = ({ logs }) => {
         {logs.map((val, ind) => (
           <tr key={ind}>
             <td>{val.timestamp}</td>
-            <td />
+            <td>{val.url}</td>
             <td>{val.reason}</td>
             <td>{val.time}</td>
           </tr>

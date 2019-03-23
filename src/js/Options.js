@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import styled from 'styled-components'
 
+import GlobalStyle from './GlobalStyle';
+import Title from './components/Title/Title'
 import LogTable from './components/LogTable/LogTable'
 
 class Options extends React.Component {
@@ -45,7 +46,8 @@ class Options extends React.Component {
   render () {
     return (
       <div>
-        <h2>Options</h2>
+        <GlobalStyle />
+        <Title>Options</Title>
         <div>
           <div>
             Restricted sites

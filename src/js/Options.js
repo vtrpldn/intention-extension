@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import styled from 'styled-components'
 
 import GlobalStyle from './GlobalStyle';
 import Title from './components/Title/Title'
+import Button from './components/Button/Button'
 import LogTable from './components/LogTable/LogTable'
 
 class Options extends React.Component {
@@ -44,24 +46,31 @@ class Options extends React.Component {
   }
 
   render () {
+    const Wrapper = styled.div`
+      background: black;
+      color: white;
+      height: 100vh;
+      padding: 40px 50px;
+    `
+    const Panel = styled.div`
+      max-width: 40vw;
+    `
+
     return (
-      <div>
+      <Wrapper>
         <GlobalStyle />
-        <Title>Options</Title>
-        <div>
+        <Panel>
           <div>
-            Restricted sites
+            <Title text="Restricted sites" />
+            <textarea key='sitelist' onChange={this.onChange.bind(this)} value={this.state.siteList} className='settings__field' />
           </div>
-          <textarea key='sitelist' onChange={this.onChange.bind(this)} value={this.state.siteList} className='settings__field' />
-          <button onClick={this.saveConfig.bind(this)}> Salvar </button>
-        </div>
-        <div>
           <div>
-            Usage log
+            <Title text="Usage log" />
+            <LogTable logs={this.state.logs !== undefined ? this.state.logs : []} />
           </div>
-          <LogTable logs={this.state.logs !== undefined ? this.state.logs : []} />
-        </div>
-      </div>
+          <Button block onClick={this.saveConfig.bind(this)} text="Save all" />
+        </Panel>
+      </Wrapper>
     )
   }
 }

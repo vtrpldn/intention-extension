@@ -1,8 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
+
+import Button from '../Button/Button'
 
 const LogTable = ({ logs }) => {
+  const Wrapper = styled.div`
+    margin-bottom: 50px;
+  `
+
   return (
-    <div>
+    <Wrapper>
       <table>
         <tr>
           <th>Timestamp</th>
@@ -19,8 +26,8 @@ const LogTable = ({ logs }) => {
           </tr>
         ))}
       </table>
-      <button> Clear log table </button>
-    </div>
+      <Button onClick={() => alert('Cleared! Just kidding, this hasn\'t been implemented yet')} text="Clear log table" />
+    </Wrapper>
   )
 }
 

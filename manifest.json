@@ -24,8 +24,7 @@
             "http://*/*",
             "https://*/*"
           ],
-          "js": ["./build/js/main.js"],
-          "css": ["./build/css/main.css"]
+          "js": ["./build/js/main.js"]
         }
       ]
 }

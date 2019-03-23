@@ -4,7 +4,6 @@ let pageStatus = null
 
 // New page listener
 chrome.tabs.onUpdated.addListener(function () {
-
   chrome.tabs.getSelected(null, function (tab) {
     currentURL = tab.url
   })
@@ -14,8 +13,6 @@ chrome.tabs.onUpdated.addListener(function () {
     activeSites: []
   }, function (items) {
     siteList = items.siteList
-
-    console.log(items.activeSites)
   })
 })
 
@@ -23,29 +20,24 @@ chrome.tabs.onUpdated.addListener(function () {
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
     switch (request.type) {
-
       case 'GET_PAGE_STATUS':
         // check if on list of sites
-        let isCurrentUrlOnList = !!siteList.split('\n').filter((val) => currentURL.includes(val)).length
+        let isCurrentUrlOnList = getUrlListStatus(siteList, currentURL)
         // check if is already in ACTIVE_SITES_LIST
         chrome.storage.sync.get({
           activeSites: []
-        }, function(items) {
-          console.log(`===== CURRENT URL`)
-          console.log(`===== ${currentURL} `)
-          console.log(`===== ACTIVE SITES`)
-          console.log(items)
+        }, function (items) {
+          let isCurrentUrlActive = getUrlActiveStatus(items.activeSites, currentURL)
 
-          let isCurrentUrlActive = !!items.activeSites.map(val => val.url).filter((val) => val === currentURL).length
-
-          console.log(`===== CURRENT URL ACTIVE`)
-          console.log(`===== ${isCurrentUrlActive} `)
-
-          sendResponse(true)
+          sendResponse({
+            isCurrentUrlActive,
+            isCurrentUrlOnList
+          })
         })
-        break
+        return true // must return true for async messaging
 
       case 'WRITE_LOG':
+        // Push new log to usage list
         chrome.storage.sync.get({
           logs: []
         }, (items) => {
@@ -59,7 +51,7 @@ chrome.runtime.onMessage.addListener(
         break
 
       case 'SET_TIMER':
-        // add site to ACTIVE_SITES_LIST
+        // Add site to ACTIVE_SITES_LIST
         chrome.storage.sync.set({
           activeSites: [
             {
@@ -69,17 +61,16 @@ chrome.runtime.onMessage.addListener(
           ]
         })
 
+        // Remove from ACTIVE_SITES_LIST and close tab
         chrome.tabs.getSelected(null, function (tab) {
           setTimeout(() => {
-            // remove from ACTIVE_SITES_LIST and close tab
             chrome.storage.sync.set({
               activeSites: []
-            }, function() {
+            }, function () {
               chrome.tabs.remove(tab.id)
             })
           }, request.timer)
         })
-
         break
 
       default:
@@ -88,3 +79,15 @@ chrome.runtime.onMessage.addListener(
     }
   }
 )
+
+const getUrlListStatus = (list, url) => {
+  console.log('list:', list)
+  console.log('url:', url)
+  return !!list.trim().split('\n').filter((v) => url.includes(v)).length
+}
+
+const getUrlActiveStatus = (activeSites, url) => {
+  console.log('activeSites:', activeSites)
+  console.log('url:', url)
+  return !!activeSites.map(v => v.url).filter((v) => v === url).length
+}

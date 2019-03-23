@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const LogTable = ({ logs }) => {
   return (
@@ -10,20 +10,18 @@ const LogTable = ({ logs }) => {
           <th>Reason</th>
           <th>Time</th>
         </tr>
-        {logs.map((val, ind) => {
-          return (
-            <tr key={ind}>
-              <td>{val.timestamp}</td>
-              <td />
-              <td>{val.reason}</td>
-              <td>{val.time}</td>
-            </tr>
-          );
-        })}
+        {logs.map((val, ind) => (
+          <tr key={ind}>
+            <td>{val.timestamp}</td>
+            <td />
+            <td>{val.reason}</td>
+            <td>{val.time}</td>
+          </tr>
+        ))}
       </table>
       <button> Clear log table </button>
     </div>
-  );
-};
+  )
+}
 
-export default LogTable;
+export default LogTable

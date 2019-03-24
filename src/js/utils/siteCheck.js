@@ -10,5 +10,8 @@ export const getUrlListStatus = (list, url) => {
 export const getUrlActiveStatus = (activeSites, url) => {
   console.log('activeSites:', activeSites)
   console.log('url:', url)
+  if (activeSites === []) {
+    return false
+  }
   return !!activeSites.map(v => v.url).filter((v) => v === url).length
 }

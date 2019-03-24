@@ -13,6 +13,8 @@ chrome.tabs.onUpdated.addListener(function () {
     siteList: [],
     activeSites: []
   }, function (items) {
+    console.log('activeSites:', items.activeSites)
+    console.log('siteList:', items.siteList)
     siteList = items.siteList
   })
 })
@@ -66,36 +68,38 @@ chrome.runtime.onMessage.addListener(
 
       case 'SET_TIMER':
         // Add site to ACTIVE_SITES_LIST
-        chrome.storage.sync.set({
-          activeSites: [
-            {
-              url: currentURL,
-              timer: request.timer
-            }
-          ]
+        chrome.storage.sync.get({
+          activeSites: []
+        }, (items) => {
+          chrome.storage.sync.set({
+            activeSites: [
+              {
+                url: currentURL,
+                timer: request.timer
+              },
+              ...items.activeSites
+            ]
+          })
         })
 
         // Remove from ACTIVE_SITES_LIST and close tab
         chrome.tabs.getSelected(null, function (tab) {
           setTimeout(() => {
-            // chrome.storage.sync.get({
-
-            // }, (items) => {
-
-            // })
-            chrome.storage.sync.set({
-              // Right now this is clearing all active sites.
-              // However, it should only remove the current active entry and keep everything else
+            chrome.storage.sync.get({
               activeSites: []
-            }, () => {
-              chrome.tabs.query({
-                url: [
-                  `*://${currentURL}/*`,
-                  `*://www.${currentURL}/*`,
-                ]
-              }, (tabs) => {
-                tabs.forEach((tab) => {
-                  chrome.tabs.remove(tab.id)
+            }, (items) => {
+              chrome.storage.sync.set({
+                activeSites: []
+              }, () => {
+                chrome.tabs.query({
+                  url: [
+                    `*://${currentURL}/*`,
+                    `*://www.${currentURL}/*`,
+                  ]
+                }, (tabs) => {
+                  tabs.forEach((tab) => {
+                    chrome.tabs.remove(tab.id)
+                  })
                 })
               })
             })

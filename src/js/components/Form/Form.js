@@ -36,7 +36,6 @@ class Form extends Component {
   }
 
   changeTimer (e) {
-    console.log(e)
     this.setState({
       timer: e.target.value
     })
@@ -45,7 +44,7 @@ class Form extends Component {
   clickSave () {
     // prepare data object
     let data = {
-      timestamp: new Date().toLocaleDateString('en-us'),
+      timestamp: new Date().toLocaleDateString('en-us'), // Remember to do some i18n in this later
       url: this.state.url,
       reason: this.state.reason,
       time: this.state.timer

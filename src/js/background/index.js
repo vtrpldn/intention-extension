@@ -1,3 +1,6 @@
+
+import { getUrlListStatus, getUrlActiveStatus } from '../utils/siteCheck'
+
 let currentURL = ''
 let siteList = ''
 let pageStatus = null
@@ -54,11 +57,11 @@ chrome.runtime.onMessage.addListener(
 
       case 'CLEAR_LOG':
         // Push new log to usage list
-          chrome.storage.sync.set({
-            logs: []
-          }, () => {
-            sendResponse('Log cleared')
-          })
+        chrome.storage.sync.set({
+          logs: []
+        }, () => {
+          sendResponse('Log cleared')
+        })
         return true
 
       case 'SET_TIMER':
@@ -84,21 +87,30 @@ chrome.runtime.onMessage.addListener(
         })
         break
 
+      case 'TOGGLE_CURRENT_SITE':
+        chrome.storage.sync.get({
+          siteList: ''
+        }, (items) => {
+          if (request.isCurrentUrlListed) {
+            chrome.storage.sync.set({
+              siteList: items.siteList.replace(request.currentActiveUrl, '').trim()
+            }, () => {
+              sendResponse('Removido')
+            })
+          } else {
+            chrome.storage.sync.set({
+              siteList: items.siteList.trim() + '\n' + request.currentActiveUrl
+            }, () => {
+              sendResponse('Adicionado')
+            })
+          }
+        })
+
+        return true
+
       default:
         sendResponse(null)
         break
     }
   }
 )
-
-const getUrlListStatus = (list, url) => {
-  console.log('list:', list)
-  console.log('url:', url)
-  return !!list.trim().split('\n').filter((v) => url.includes(v)).length
-}
-
-const getUrlActiveStatus = (activeSites, url) => {
-  console.log('activeSites:', activeSites)
-  console.log('url:', url)
-  return !!activeSites.map(v => v.url).filter((v) => v === url).length
-}

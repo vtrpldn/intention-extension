@@ -7,12 +7,12 @@ import GlobalStyle from './GlobalStyle';
 const Wrapper = styled.div`
   display: ${({ display }) => display};
   background: rgba(255,255,255, 0.9);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2147483647;
+  z-index: 2147483647; /* NONE SHALL PASS */
   transition: all 1s ease;
 `
 

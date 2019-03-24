@@ -25,8 +25,6 @@ module.exports = {
       filename: '../html/options.html'
     }),
     new HtmlWebpackPlugin({
-      template: './src/html/popup.html',
-      inject: false,
       chunks: ['popup'],
       filename: '../html/popup.html'
     }),

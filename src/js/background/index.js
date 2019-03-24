@@ -21,7 +21,6 @@ chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
     switch (request.type) {
       case 'GET_PAGE_STATUS':
-
         // check if on list of sites
         let isCurrentUrlOnList = getUrlListStatus(siteList, currentURL)
 
@@ -40,7 +39,6 @@ chrome.runtime.onMessage.addListener(
         return true // must return true for async messaging
 
       case 'WRITE_LOG':
-
         // Push new log to usage list
         chrome.storage.sync.get({
           logs: []
@@ -52,11 +50,18 @@ chrome.runtime.onMessage.addListener(
             ]
           })
         })
-
         break
 
-      case 'SET_TIMER':
+      case 'CLEAR_LOG':
+        // Push new log to usage list
+          chrome.storage.sync.set({
+            logs: []
+          }, () => {
+            sendResponse('Log cleared')
+          })
+        return true
 
+      case 'SET_TIMER':
         // Add site to ACTIVE_SITES_LIST
         chrome.storage.sync.set({
           activeSites: [
@@ -77,7 +82,6 @@ chrome.runtime.onMessage.addListener(
             })
           }, request.timer)
         })
-
         break
 
       default:

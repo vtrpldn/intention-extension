@@ -8,9 +8,19 @@ const LogTable = ({ logs }) => {
     margin-bottom: 50px;
   `
 
+  const Table = styled.table`
+    margin-bottom: 20px;
+  `
+
+  const clearLog = () => {
+    chrome.runtime.sendMessage({ type: 'CLEAR_LOG' }, (response) => {
+      alert(response)
+    })
+  }
+
   return (
     <Wrapper>
-      <table>
+      <Table>
         <tr>
           <th>Timestamp</th>
           <th>URL</th>
@@ -25,8 +35,8 @@ const LogTable = ({ logs }) => {
             <td>{val.time}</td>
           </tr>
         ))}
-      </table>
-      <Button onClick={() => alert('Cleared! Just kidding, this hasn\'t been implemented yet')} text="Clear log table" />
+      </Table>
+      <Button onClick={() => clearLog()} text="Clear log table" />
     </Wrapper>
   )
 }

@@ -39,7 +39,7 @@ class Form extends Component {
   clickSave () {
     // prepare data object
     let data = {
-      timestamp: JSON.stringify(new Date()),
+      timestamp: new Date().toLocaleDateString('en-us'),
       url: this.state.url,
       reason: this.state.reason,
       time: this.state.timer
@@ -61,7 +61,7 @@ class Form extends Component {
         <Wrapper>
           <Title text="Why do you want to use this website?" />
           <Input value={this.state.reason} onChange={(e) => this.changeReason(e)} type='text' placeholder="eg: Browse some sick memes for a while"/>
-          <Title text="Cool, for how long" />
+          <Title text="For how long?" />
           <Input value={this.state.timer} onChange={(e) => this.changeTimer(e)} type='number'/>
           <Button onClick={() => this.clickSave()} text={`Start using ${this.state.url}`} />
         </Wrapper>

@@ -11,6 +11,7 @@ const Button = ({onClick, text, block}) => {
     padding: 14px 20px;
     cursor: pointer;
     font-size: 16px;
+    margin-bottom: 16px;
   `
   return (
     <Wrapper onClick={onClick}>

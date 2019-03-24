@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Form from './components/Form/Form'
 import styled from 'styled-components'
-
 import GlobalStyle from './GlobalStyle';
 
 class App extends Component {
@@ -37,10 +36,12 @@ class App extends Component {
     `
 
     return (
-      <Wrapper>
+      <div>
         <GlobalStyle />
-        <Form hideOverlay={this.hideOverlay.bind(this)}/>
-      </Wrapper>
+        <Wrapper>
+          <Form hideOverlay={() => this.hideOverlay()}/>
+        </Wrapper>
+      </div>
     )
   }
 }

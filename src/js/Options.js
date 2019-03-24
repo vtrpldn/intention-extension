@@ -7,8 +7,31 @@ import Title from './components/Title/Title'
 import Button from './components/Button/Button'
 import LogTable from './components/LogTable/LogTable'
 
+const Wrapper = styled.div`
+  background: black;
+  color: white;
+  padding: 40px 50px;
+`
+
+const Panel = styled.div`
+  max-width: 40vw;
+`
+
+const Textarea = styled.textarea`
+  background: none;
+  border: none;
+  border-left: solid 1px white;
+  font-style: italic;
+  padding: 10px;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 50px;
+  color: white;
+  font-size: 16px;
+  resize: none;
+`
 class Options extends React.Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       siteList: '',
@@ -21,8 +44,8 @@ class Options extends React.Component {
       ]
     }
   }
- 
-  componentDidMount () {
+
+  componentDidMount() {
     chrome.storage.sync.get(['siteList', 'logs'], (items) => {
       this.setState({
         siteList: items.siteList,
@@ -31,38 +54,28 @@ class Options extends React.Component {
     })
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       siteList: e.target.value
     })
   }
 
-  saveConfig () {
+  saveConfig() {
     chrome.storage.sync.set({
       siteList: this.state.siteList
     }, function () {
-      alert('Saved')
+      alert('Saved, my dude')
     })
   }
 
-  render () {
-    const Wrapper = styled.div`
-      background: black;
-      color: white;
-      height: 100vh;
-      padding: 40px 50px;
-    `
-    const Panel = styled.div`
-      max-width: 40vw;
-    `
-
+  render() {
     return (
       <Wrapper>
         <GlobalStyle />
         <Panel>
           <div>
             <Title text="Restricted sites" />
-            <textarea key='sitelist' onChange={this.onChange.bind(this)} value={this.state.siteList} className='settings__field' />
+            <Textarea onChange={(e) => this.onChange(e)} value={this.state.siteList} />
           </div>
           <div>
             <Title text="Usage log" />

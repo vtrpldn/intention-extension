@@ -14,7 +14,8 @@ const LogTable = ({ logs }) => {
 
   const clearLog = () => {
     chrome.runtime.sendMessage({ type: 'CLEAR_LOG' }, (response) => {
-      alert(response)
+      window.location.reload()
+      alert('Cleared!')
     })
   }
 

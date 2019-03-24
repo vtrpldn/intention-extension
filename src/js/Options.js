@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   background: black;
   color: white;
   padding: 40px 50px;
+  height: 100vh;
 `
 
 const Panel = styled.div`

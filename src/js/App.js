@@ -4,8 +4,20 @@ import Form from './components/Form/Form'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalStyle';
 
+const Wrapper = styled.div`
+  display: ${({ display }) => display};
+  background: rgba(255,255,255, 0.9);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  transition: all 1s ease;
+`
+
 class App extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       style: {
@@ -22,24 +34,14 @@ class App extends Component {
     })
   }
 
-  render () {
-    const Wrapper = styled.div`
-      display: ${this.state.style.display};
-      background: rgba(255,255,255, 0.9);
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2147483647;
-      transition: all 1s ease;
-    `
+  render() {
+    const { display } = this.state.style
 
     return (
       <div>
         <GlobalStyle />
-        <Wrapper>
-          <Form hideOverlay={() => this.hideOverlay()}/>
+        <Wrapper display={display}>
+          <Form hideOverlay={() => this.hideOverlay()} />
         </Wrapper>
       </div>
     )

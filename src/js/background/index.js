@@ -93,7 +93,7 @@ chrome.runtime.onMessage.addListener(
               }, () => {
                 chrome.tabs.query({
                   url: [
-                    `*://${currentURL}/*`,
+                    `*://${currentURL}/*`, // This is wrong because the URL changes based on which URL you are now < BUG
                     `*://www.${currentURL}/*`,
                   ]
                 }, (tabs) => {

@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Radio = ({name, value, timer, text, onChange, block}) => {
-
+const Radio = ({ name, value, timer, text, onChange, block }) => {
   const isActive = timer == value
-  
+
   const Label = styled.label`
     background: ${isActive ? 'white' : 'black'};
     color: ${isActive ? 'black' : 'white'};
@@ -27,14 +26,14 @@ const Radio = ({name, value, timer, text, onChange, block}) => {
   return (
     <Label>
       <Input
-        type="radio"
+        type='radio'
         name={name}
         value={value}
         checked={isActive}
         onChange={(e) => onChange(e)}
       />
       {text}
-  </Label>
+    </Label>
   )
 }
 

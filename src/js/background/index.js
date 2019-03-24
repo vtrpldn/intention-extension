@@ -1,14 +1,12 @@
-
 import { getUrlListStatus, getUrlActiveStatus } from '../utils/siteCheck'
 
 let currentURL = ''
 let siteList = ''
-let pageStatus = null
 
 // New page listener
 chrome.tabs.onUpdated.addListener(function () {
   chrome.tabs.getSelected(null, function (tab) {
-    currentURL = tab.url
+    currentURL = new URL(tab.url).hostname
   })
 
   chrome.storage.sync.get({
@@ -51,6 +49,8 @@ chrome.runtime.onMessage.addListener(
               request.data,
               ...items.logs
             ]
+          }, () => {
+            sendResponse('WRITE_LOG-WRITTEN')
           })
         })
         break
@@ -60,7 +60,7 @@ chrome.runtime.onMessage.addListener(
         chrome.storage.sync.set({
           logs: []
         }, () => {
-          sendResponse('Log cleared')
+          sendResponse('CLEAR_LOG-CLEARED')
         })
         return true
 
@@ -78,10 +78,26 @@ chrome.runtime.onMessage.addListener(
         // Remove from ACTIVE_SITES_LIST and close tab
         chrome.tabs.getSelected(null, function (tab) {
           setTimeout(() => {
+            // chrome.storage.sync.get({
+
+            // }, (items) => {
+
+            // })
             chrome.storage.sync.set({
+              // Right now this is clearing all active sites.
+              // However, it should only remove the current active entry and keep everything else
               activeSites: []
-            }, function () {
-              chrome.tabs.remove(tab.id)
+            }, () => {
+              chrome.tabs.query({
+                url: [
+                  `*://${currentURL}/*`,
+                  `*://www.${currentURL}/*`,
+                ]
+              }, (tabs) => {
+                tabs.forEach((tab) => {
+                  chrome.tabs.remove(tab.id)
+                })
+              })
             })
           }, request.timer)
         })
@@ -95,13 +111,13 @@ chrome.runtime.onMessage.addListener(
             chrome.storage.sync.set({
               siteList: items.siteList.replace(request.currentActiveUrl, '').trim()
             }, () => {
-              sendResponse('Removido')
+              sendResponse('TOGGLE_CURRENT_SITE-REMOVED')
             })
           } else {
             chrome.storage.sync.set({
               siteList: items.siteList.trim() + '\n' + request.currentActiveUrl
             }, () => {
-              sendResponse('Adicionado')
+              sendResponse('TOGGLE_CURRENT_SITE-ADDED')
             })
           }
         })

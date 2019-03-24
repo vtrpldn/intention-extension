@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { getUrlListStatus } from './utils/siteCheck'
 
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from './GlobalStyle'
 import Button from './components/Button/Button'
 
 const Wrapper = styled.div`
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `
 
 class Popup extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       currentActiveUrl: '',
@@ -24,7 +24,7 @@ class Popup extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     chrome.tabs.query({
       active: true,
       currentWindow: true
@@ -42,20 +42,24 @@ class Popup extends React.Component {
           isCurrentUrlListed: getUrlListStatus(items.siteList, currentActiveUrl)
         })
       })
-    });
+    })
   }
 
-  toggleCurrentToList() {
+  toggleCurrentToList () {
     chrome.runtime.sendMessage({
       type: 'TOGGLE_CURRENT_SITE',
       currentActiveUrl: this.state.currentActiveUrl,
       isCurrentUrlListed: this.state.isCurrentUrlListed
-    }, (response) => {
-      alert(response)
+    }, () => {
+      // Refactor this to include into state
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.update(tabs[0].id, { url: tabs[0].url })
+        window.close()
+      })
     })
   }
 
-  render() {
+  render () {
     return (
       <Wrapper>
         <GlobalStyle />

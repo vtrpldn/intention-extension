@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   margin-bottom: 10px;
 `
 
-const Title = ({text}) => {
+const Title = ({ text }) => {
   return (
     <Wrapper>
       {text}

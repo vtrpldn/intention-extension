@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = ({onClick, text, block}) => {
-
+const Button = ({ onClick, text, block }) => {
   const Wrapper = styled.div`
     border: solid 1px white;
     display: ${block ? 'block' : 'inline-block'};

@@ -37,7 +37,7 @@ const LogTable = ({ logs }) => {
           </tr>
         ))}
       </Table>
-      <Button onClick={() => clearLog()} text="Clear log table" />
+      <Button onClick={() => clearLog()} text='Clear log table' />
     </Wrapper>
   )
 }

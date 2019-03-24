@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from './GlobalStyle'
 import Title from './components/Title/Title'
 import Button from './components/Button/Button'
 import LogTable from './components/LogTable/LogTable'
@@ -32,7 +32,7 @@ const Textarea = styled.textarea`
   resize: none;
 `
 class Options extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       siteList: '',
@@ -46,7 +46,7 @@ class Options extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     chrome.storage.sync.get(['siteList', 'logs'], (items) => {
       this.setState({
         siteList: items.siteList,
@@ -55,13 +55,13 @@ class Options extends React.Component {
     })
   }
 
-  onChange(e) {
+  onChange (e) {
     this.setState({
       siteList: e.target.value
     })
   }
 
-  saveConfig() {
+  saveConfig () {
     chrome.storage.sync.set({
       siteList: this.state.siteList
     }, function () {
@@ -69,20 +69,20 @@ class Options extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return (
       <Wrapper>
         <GlobalStyle />
         <Panel>
           <div>
-            <Title text="Restricted sites" />
+            <Title text='Restricted sites' />
             <Textarea onChange={(e) => this.onChange(e)} value={this.state.siteList} />
           </div>
           <div>
-            <Title text="Usage log" />
+            <Title text='Usage log' />
             <LogTable logs={this.state.logs !== undefined ? this.state.logs : []} />
           </div>
-          <Button block onClick={this.saveConfig.bind(this)} text="Save all" />
+          <Button block onClick={this.saveConfig.bind(this)} text='Save all' />
         </Panel>
       </Wrapper>
     )

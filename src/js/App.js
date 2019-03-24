@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Form from './components/Form/Form'
 import styled from 'styled-components'
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from './GlobalStyle'
 
 const Wrapper = styled.div`
   display: ${({ display }) => display};
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `
 
 class App extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       style: {
@@ -26,7 +26,7 @@ class App extends Component {
     }
   }
 
-  hideOverlay() {
+  hideOverlay () {
     this.setState({
       style: {
         display: 'none'
@@ -34,7 +34,7 @@ class App extends Component {
     })
   }
 
-  render() {
+  render () {
     const { display } = this.state.style
 
     return (

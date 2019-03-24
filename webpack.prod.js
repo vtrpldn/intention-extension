@@ -21,8 +21,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/html/options.html',
-      inject: false,
       chunks: ['options'],
       filename: '../html/options.html'
     }),

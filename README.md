@@ -5,8 +5,8 @@
 - [X] Close all tabs with domain when time runs out
 - [x] Remove website from active list when timer is over
 - [ ] Refactor Background before it becomes a mess
-- [ ] Refactor siteList logic to array instead of string and simply push the same entry to active
-- [ ] Debug weird active list behavior
+- [x] Refactor siteList logic to array instead of string
+- [ ] Fix activeList logic
 - [ ] Finish styling options page
 - [x] Create "Add this site to restricted list" option in Popup.js
 - [x] Create delete log entries button

@@ -1,4 +1,7 @@
-import { getUrlListStatus, getUrlActiveStatus } from '../utils/siteCheck'
+import {
+  getUrlListStatus,
+  getUrlActiveStatus
+} from '../utils/siteCheck'
 
 let currentURL = ''
 let siteList = ''
@@ -67,59 +70,63 @@ chrome.runtime.onMessage.addListener(
         return true
 
       case 'SET_TIMER':
+        let timerUrl = currentURL
         // Add site to ACTIVE_SITES_LIST
         chrome.storage.sync.get({
           activeSites: []
         }, (items) => {
+          console.log('callback SET_TIMER GET activeSites')
           chrome.storage.sync.set({
-            activeSites: [
-              {
-                url: currentURL,
-                timer: request.timer
-              },
-              ...items.activeSites
+            activeSites: [{
+              url: timerUrl,
+              timer: request.timer
+            },
+            ...items.activeSites
             ]
+          }, () => {
+            console.log('callback SET_TIMER SET activeSites')
           })
         })
 
         // Remove from ACTIVE_SITES_LIST and close tab
-        chrome.tabs.getSelected(null, function (tab) {
-          setTimeout(() => {
-            chrome.storage.sync.get({
+        setTimeout(() => {
+          chrome.storage.sync.get({
+            activeSites: []
+          }, (items) => {
+            chrome.storage.sync.set({
               activeSites: []
-            }, (items) => {
-              chrome.storage.sync.set({
-                activeSites: []
-              }, () => {
-                chrome.tabs.query({
-                  url: [
-                    `*://${currentURL}/*`, // This is wrong because the URL changes based on which URL you are now < BUG
-                    `*://www.${currentURL}/*`,
-                  ]
-                }, (tabs) => {
-                  tabs.forEach((tab) => {
-                    chrome.tabs.remove(tab.id)
-                  })
+            }, () => {
+              chrome.tabs.query({
+                url: [
+                  `*://${timerUrl}/*`, // This is wrong because the URL changes based on which URL you are now < BUG
+                  `*://www.${timerUrl}/*`
+                ]
+              }, (tabs) => {
+                tabs.forEach((tab) => {
+                  chrome.tabs.remove(tab.id)
                 })
               })
             })
-          }, request.timer)
-        })
+          })
+        }, request.timer)
         break
 
       case 'TOGGLE_CURRENT_SITE':
         chrome.storage.sync.get({
-          siteList: ''
+          siteList: []
         }, (items) => {
           if (request.isCurrentUrlListed) {
             chrome.storage.sync.set({
-              siteList: items.siteList.replace(request.currentActiveUrl, '').trim()
+              siteList: items.siteList.filter((val) => val !== request.currentActiveUrl)
             }, () => {
               sendResponse('TOGGLE_CURRENT_SITE-REMOVED')
             })
           } else {
             chrome.storage.sync.set({
-              siteList: items.siteList.trim() + '\n' + request.currentActiveUrl
+              siteList: [
+                request.currentActiveUrl,
+                ...items.siteList
+              ]
             }, () => {
               sendResponse('TOGGLE_CURRENT_SITE-ADDED')
             })

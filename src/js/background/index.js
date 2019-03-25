@@ -44,33 +44,24 @@ chrome.runtime.onMessage.addListener(
           })
         })
 
-        return true // must return true for async messaging
+        return true
 
       case 'WRITE_LOG':
-        storagePush('logs', request.data, sendResponse)
-        break
+        storagePush('logs', request.data)
+        return true
 
       case 'CLEAR_LOG':
-        storageClear('logs', sendResponse)
+        storageClear('logs')
         return true
 
       case 'SET_TIMER':
         let timerUrl = currentURL
         // Add site to ACTIVE_SITES_LIST
-        chrome.storage.sync.get({
-          activeSites: []
-        }, (items) => {
-          console.log('callback SET_TIMER GET activeSites')
-          chrome.storage.sync.set({
-            activeSites: [{
-              url: timerUrl,
-              timer: request.timer
-            },
-            ...items.activeSites
-            ]
-          }, () => {
-            console.log('callback SET_TIMER SET activeSites')
-          })
+        storagePush('activeSites', {
+          url: timerUrl,
+          timer: request.timer
+        }, () => {
+          alert('pushei novo active site')
         })
 
         // Remove from ACTIVE_SITES_LIST and close tab

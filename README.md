@@ -16,3 +16,4 @@
 - [ ] Create some kind of pattern for dealing with sendResponse
 - [ ] i18n
 - [ ] Write a proper Readme
+- [ ] Add an "other" field on "For how long?"

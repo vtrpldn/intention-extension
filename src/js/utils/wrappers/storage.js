@@ -1,4 +1,4 @@
-export const storagePush = (stack, element, sendResponse, cb) => {
+export const storagePush = (stack, element, cb) => {
   return chrome.storage.sync.get({
     [stack]: []
   }, (items) => {
@@ -7,18 +7,12 @@ export const storagePush = (stack, element, sendResponse, cb) => {
         element,
         ...items[stack]
       ]
-    }, () => {
-      sendResponse('WRITE_LOG-WRITTEN')
-      cb()
-    })
+    }, cb)
   })
 }
 
-export const storageClear = (stack, sendResponse, cb) => {
+export const storageClear = (stack, cb) => {
   return chrome.storage.sync.set({
     [stack]: []
-  }, () => {
-    sendResponse('CLEAR_LOG-CLEARED')
-    cb()
-  })
+  }, cb)
 }

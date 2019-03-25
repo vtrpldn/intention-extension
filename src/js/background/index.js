@@ -3,6 +3,8 @@ import {
   getUrlActiveStatus
 } from '../utils/siteCheck'
 
+import { storagePush, storageClear } from '../utils/wrappers/storage'
+
 let currentURL = ''
 let siteList = ''
 
@@ -45,28 +47,11 @@ chrome.runtime.onMessage.addListener(
         return true // must return true for async messaging
 
       case 'WRITE_LOG':
-        // Push new log to usage list
-        chrome.storage.sync.get({
-          logs: []
-        }, (items) => {
-          chrome.storage.sync.set({
-            logs: [
-              request.data,
-              ...items.logs
-            ]
-          }, () => {
-            sendResponse('WRITE_LOG-WRITTEN')
-          })
-        })
+        storagePush('logs', request.data, sendResponse)
         break
 
       case 'CLEAR_LOG':
-        // Push new log to usage list
-        chrome.storage.sync.set({
-          logs: []
-        }, () => {
-          sendResponse('CLEAR_LOG-CLEARED')
-        })
+        storageClear('logs', sendResponse)
         return true
 
       case 'SET_TIMER':
@@ -90,6 +75,7 @@ chrome.runtime.onMessage.addListener(
 
         // Remove from ACTIVE_SITES_LIST and close tab
         setTimeout(() => {
+          // Use storagePush here
           chrome.storage.sync.get({
             activeSites: []
           }, (items) => {
@@ -98,7 +84,7 @@ chrome.runtime.onMessage.addListener(
             }, () => {
               chrome.tabs.query({
                 url: [
-                  `*://${timerUrl}/*`, // This is wrong because the URL changes based on which URL you are now < BUG
+                  `*://${timerUrl}/*`,
                   `*://www.${timerUrl}/*`
                 ]
               }, (tabs) => {

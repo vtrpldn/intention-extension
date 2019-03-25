@@ -4,7 +4,7 @@
 
 - [X] Close all tabs with domain when time runs out
 - [x] Remove website from active list when timer is over
-- [ ] Refactor Background before it becomes a mess
+- [wip] Refactor Background before it becomes a mess
 - [x] Refactor siteList logic to array instead of string
 - [ ] Fix activeList logic
 - [ ] Finish styling options page

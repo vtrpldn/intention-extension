@@ -2,13 +2,14 @@ import {
   getUrlListStatus,
   getUrlActiveStatus
 } from '../utils/siteCheck'
-
 import {
   storagePush,
   storageClear
 } from '../utils/wrappers/storage'
+import {
+  tabsCurrentUrl
+} from '../utils/wrappers/tabs';
 
-let currentURL = ''
 let siteList = ''
 
 // New page listener
@@ -32,19 +33,22 @@ chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
     switch (request.type) {
       case 'GET_PAGE_STATUS':
-        // check if on list of sites
-        let isCurrentUrlOnList = getUrlListStatus(siteList, currentURL)
-
-        // check if is already in ACTIVE_SITES_LIST
-        chrome.storage.sync.get({
-          activeSites: []
-        }, function (items) {
-          let isCurrentUrlActive = getUrlActiveStatus(items.activeSites, currentURL)
-
-          sendResponse({
-            isCurrentUrlActive,
-            isCurrentUrlOnList
+        tabsCurrentUrl((currentUrl) => {
+          // check if on list of sites
+          let isCurrentUrlOnList = getUrlListStatus(siteList, currentUrl)
+  
+          // check if is already in ACTIVE_SITES_LIST
+          chrome.storage.sync.get({
+            activeSites: []
+          }, function (items) {
+            let isCurrentUrlActive = getUrlActiveStatus(items.activeSites, currentUrl)
+  
+            sendResponse({
+              isCurrentUrlActive,
+              isCurrentUrlOnList
+            })
           })
+
         })
 
         return true
@@ -58,23 +62,18 @@ chrome.runtime.onMessage.addListener(
         return true
 
       case 'SET_TIMER':
-        chrome.tabs.query({
-          active: true,
-          currentWindow: true
-        }, (tabs) => {
-          let currentActiveUrl = new URL(tabs[0].url).hostname
-
+        tabsCurrentUrl((currentUrl) => {
           const timeOutFunc = () => {
             chrome.storage.sync.get({
               activeSites: []
             }, (items) => {
               chrome.storage.sync.set({
-                activeSites: items.activeSites.filter((val) => val.url !== currentActiveUrl)
+                activeSites: items.activeSites.filter((val) => val.url !== currentUrl)
               }, () => {
                 chrome.tabs.query({
                   url: [
-                    `*://${currentActiveUrl}/*`,
-                    `*://www.${currentActiveUrl}/*`
+                    `*://${currentUrl}/*`,
+                    `*://www.${currentUrl}/*`
                   ]
                 }, (tabs) => {
                   tabs.forEach((tab) => {
@@ -86,13 +85,12 @@ chrome.runtime.onMessage.addListener(
           }
 
           storagePush('activeSites', {
-            url: currentActiveUrl,
+            url: currentUrl,
             timer: request.timer,
             timeoutId: setTimeout(timeOutFunc, request.timer)
           })
-          
         })
-        
+
         break
 
       case 'TOGGLE_CURRENT_SITE':

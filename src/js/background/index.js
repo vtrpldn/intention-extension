@@ -3,7 +3,10 @@ import {
   getUrlActiveStatus
 } from '../utils/siteCheck'
 
-import { storagePush, storageClear } from '../utils/wrappers/storage'
+import {
+  storagePush,
+  storageClear
+} from '../utils/wrappers/storage'
 
 let currentURL = ''
 let siteList = ''
@@ -55,37 +58,41 @@ chrome.runtime.onMessage.addListener(
         return true
 
       case 'SET_TIMER':
-        let timerUrl = currentURL
-        // Add site to ACTIVE_SITES_LIST
-        storagePush('activeSites', {
-          url: timerUrl,
-          timer: request.timer
-        }, () => {
-          alert('pushei novo active site')
-        })
+        chrome.tabs.query({
+          active: true,
+          currentWindow: true
+        }, (tabs) => {
+          let currentActiveUrl = new URL(tabs[0].url).hostname
 
-        // Remove from ACTIVE_SITES_LIST and close tab
-        setTimeout(() => {
-          // Use storagePush here
-          chrome.storage.sync.get({
-            activeSites: []
-          }, (items) => {
-            chrome.storage.sync.set({
+          const timeOutFunc = () => {
+            chrome.storage.sync.get({
               activeSites: []
-            }, () => {
-              chrome.tabs.query({
-                url: [
-                  `*://${timerUrl}/*`,
-                  `*://www.${timerUrl}/*`
-                ]
-              }, (tabs) => {
-                tabs.forEach((tab) => {
-                  chrome.tabs.remove(tab.id)
+            }, (items) => {
+              chrome.storage.sync.set({
+                activeSites: items.activeSites.filter((val) => val.url !== currentActiveUrl)
+              }, () => {
+                chrome.tabs.query({
+                  url: [
+                    `*://${currentActiveUrl}/*`,
+                    `*://www.${currentActiveUrl}/*`
+                  ]
+                }, (tabs) => {
+                  tabs.forEach((tab) => {
+                    chrome.tabs.remove(tab.id)
+                  })
                 })
               })
             })
+          }
+
+          storagePush('activeSites', {
+            url: currentActiveUrl,
+            timer: request.timer,
+            timeoutId: setTimeout(timeOutFunc, request.timer)
           })
-        }, request.timer)
+          
+        })
+        
         break
 
       case 'TOGGLE_CURRENT_SITE':

@@ -1,6 +1,6 @@
 export const getUrlListStatus = (list, url) => {
-  console.log('list:', list)
-  console.log('url:', url)
+  // console.log('list:', list)
+  // console.log('url:', url)
   if (list === []) {
     return false
   }
@@ -8,8 +8,8 @@ export const getUrlListStatus = (list, url) => {
 }
 
 export const getUrlActiveStatus = (activeSites, url) => {
-  console.log('activeSites:', activeSites)
-  console.log('url:', url)
+  // console.log('activeSites:', activeSites)
+  // console.log('url:', url)
   if (activeSites === []) {
     return false
   }

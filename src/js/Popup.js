@@ -59,16 +59,6 @@ class Popup extends React.Component {
     })
   }
 
-  // DEBUG OPTION
-  clearActive () {
-    alert('Clearing Active List')
-    chrome.storage.sync.set({
-      activeList: []
-    }, () => {
-      console.log('activeList cleared')
-    })
-  }
-
   render () {
     return (
       <Wrapper>
@@ -77,11 +67,6 @@ class Popup extends React.Component {
           block
           text={this.state.isCurrentUrlListed ? 'Remove this site from list' : 'Add this site to list'}
           onClick={() => this.toggleCurrentToList()}
-        />
-        <Button
-          block
-          text='Clear active sites'
-          onClick={() => this.clearActive()}
         />
       </Wrapper>
     )

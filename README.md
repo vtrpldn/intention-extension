@@ -6,7 +6,7 @@
 - [x] Remove website from active list when timer is over
 - [wip] Refactor Background before it becomes a mess
 - [x] Refactor siteList logic to array instead of string
-- [ ] Fix activeList logic
+- [x] Fix activeList logic
 - [ ] Finish styling options page
 - [x] Create "Add this site to restricted list" option in Popup.js
 - [x] Create delete log entries button

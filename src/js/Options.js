@@ -49,7 +49,7 @@ class Options extends React.Component {
   componentDidMount () {
     chrome.storage.sync.get(['siteList', 'logs'], (items) => {
       this.setState({
-        siteList: items.siteList,
+        siteList: items.siteList.join('\n'),
         logs: items.logs
       })
     })
@@ -63,7 +63,7 @@ class Options extends React.Component {
 
   saveConfig () {
     chrome.storage.sync.set({
-      siteList: this.state.siteList
+      siteList: this.state.siteList.trim().split('\n')
     }, function () {
       alert('Saved, my dude')
     })

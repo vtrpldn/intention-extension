@@ -1,15 +1,15 @@
 export const getUrlListStatus = (list, url) => {
-  console.log('list:', list)
-  console.log('url:', url)
-  if (list.trim() === '') {
+  // console.log('list:', list)
+  // console.log('url:', url)
+  if (list === []) {
     return false
   }
-  return !!list.trim().split('\n').filter((v) => url.includes(v)).length
+  return !!list.filter((v) => url.includes(v)).length
 }
 
 export const getUrlActiveStatus = (activeSites, url) => {
-  console.log('activeSites:', activeSites)
-  console.log('url:', url)
+  // console.log('activeSites:', activeSites)
+  // console.log('url:', url)
   if (activeSites === []) {
     return false
   }

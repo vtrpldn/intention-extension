@@ -2,7 +2,8 @@
 
 ### To do
 
-- [ ] Refactor timer to use setInterval instead of setTimeout
+- [x] Refactor timer to use setInterval instead of setTimeout
+- [ ] Show timer on popup
 - [ ] Add an "other" field on "For how long?"
 - [ ] Show active timers on pop up
 - [ ] Finish styling options page

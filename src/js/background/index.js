@@ -14,10 +14,6 @@ let siteList = ''
 
 // New page listener
 chrome.tabs.onUpdated.addListener(function () {
-  chrome.tabs.getSelected(null, function (tab) {
-    currentURL = new URL(tab.url).hostname
-  })
-
   chrome.storage.sync.get({
     siteList: [],
     activeSites: []
@@ -64,7 +60,27 @@ chrome.runtime.onMessage.addListener(
 
       case 'SET_TIMER':
         tabsCurrentUrl((currentUrl) => {
-          const timeOutFunc = () => {
+
+          let activeTabData = {
+            url: currentUrl,
+            timer: request.timer / 1000,
+            tick: 0
+          }
+        
+          const intervalId = setInterval( () => {
+            activeTabData.tick = activeTabData.tick + 1
+
+            console.log(`${activeTabData.url} says TICK! ${activeTabData.tick}s have passed`);
+
+            if (activeTabData.tick >= activeTabData.timer) {
+              console.log(`${activeTabData.url} says GOODBYE!`);
+              clearInterval(intervalId)
+              removeSiteFromActiveListAndCloseAllMatchingTabs()
+            }
+
+          }, 1000)
+
+          const removeSiteFromActiveListAndCloseAllMatchingTabs = () => {
             chrome.storage.sync.get({
               activeSites: []
             }, (items) => {
@@ -86,9 +102,9 @@ chrome.runtime.onMessage.addListener(
           }
 
           storagePush('activeSites', {
-            url: currentUrl,
-            timer: request.timer,
-            timeoutId: setTimeout(timeOutFunc, request.timer)
+            url: activeTabData.url,
+            timer: activeTabData.timer,
+            intervalId
           })
         })
 

@@ -34,6 +34,7 @@ chrome.runtime.onMessage.addListener(
     switch (request.type) {
       case 'GET_PAGE_STATUS':
         tabsCurrentUrl((currentUrl) => {
+          
           // check if on list of sites
           let isCurrentUrlOnList = getUrlListStatus(siteList, currentUrl)
   

@@ -3,9 +3,8 @@
 ### To do
 
 - [x] Refactor timer to use setInterval instead of setTimeout
-- [ ] Show timer on popup
-- [ ] Add an "other" field on "For how long?"
 - [ ] Show active timers on pop up
+- [ ] Add an "other" field on "For how long?"
 - [ ] Finish styling options page
 - [ ] 90% coverage
 - [ ] Make form fields mandatory

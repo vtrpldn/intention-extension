@@ -16,3 +16,9 @@ export const storageClear = (stack, cb) => {
     [stack]: []
   }, cb)
 }
+
+export const storageLog = (key) => {
+  return chrome.storage.sync.get([key], (i) => {
+    console.log(`${key}: ${i[key]}`)
+  })
+}

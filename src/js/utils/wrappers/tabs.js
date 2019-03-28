@@ -7,3 +7,16 @@ export const tabsCurrentUrl = (cb) => {
         cb(currentActiveUrl)
     })
 }
+
+export const tabsCloseMatch = (url) => {
+  return chrome.tabs.query({
+    url: [
+      `*://${url}/*`,
+      `*://www.${url}/*`
+    ]
+  }, (tabs) => {
+    tabs.forEach((tab) => {
+      chrome.tabs.remove(tab.id)
+    })
+  })
+}

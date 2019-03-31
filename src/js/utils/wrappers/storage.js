@@ -17,8 +17,10 @@ export const storageClear = (stack, cb) => {
   }, cb)
 }
 
-export const storageLog = (key) => {
+export const storageFilter = (key, filter, cb) => {
   return chrome.storage.sync.get([key], (i) => {
-    console.log(`${key}: ${i[key]}`)
+    chrome.storage.sync.set({
+      activeSites: i[key].filter(filter)
+    }, cb)
   })
 }

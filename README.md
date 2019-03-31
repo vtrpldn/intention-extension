@@ -3,9 +3,9 @@
 ### To do
 
 - [ ] Show active timers on pop up
+- [ ] Make form fields mandatory
 - [ ] Finish styling options page
 - [ ] 90% coverage
-- [ ] Make form fields mandatory
 - [ ] Create some kind of pattern for dealing with sendResponse?
 - [ ] Write a proper Readme
 

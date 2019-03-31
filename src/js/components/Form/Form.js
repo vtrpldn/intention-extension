@@ -71,7 +71,6 @@ class Form extends Component {
           <Title text='For how long?' />
           <RadioWrapper>
             <Radio text='1 second' value='1000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
-            <Radio text='10 seconds' value='10000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
             <Radio text='1 minute' value='60000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
             <Radio text='5 minutes' value='300000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
             <TimerSelector timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />

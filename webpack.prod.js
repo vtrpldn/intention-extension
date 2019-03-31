@@ -1,6 +1,7 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -20,6 +21,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new CopyPlugin([
+      { from: './src/manifest.json', to: '../manifest.json' }
+    ]),
     new HtmlWebpackPlugin({
       chunks: ['options'],
       filename: '../html/options.html'

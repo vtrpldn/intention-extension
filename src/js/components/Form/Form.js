@@ -5,12 +5,13 @@ import Radio from '../Radio/Radio'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
 import Title from '../Title/Title'
+import TimerSelector from '../TimerSelector/TimerSelector'
 
 const Wrapper = styled.div`
   background: black;
   color: white;
   width: 100%;
-  max-width: 40vw;
+  max-width: 70vw;
   height: 100vh;
   padding: 40px 50px;
 `
@@ -36,6 +37,7 @@ class Form extends Component {
   }
 
   changeTimer (e) {
+    console.log(e.target.value)
     this.setState({
       timer: e.target.value
     })
@@ -68,10 +70,11 @@ class Form extends Component {
           <Input value={this.state.reason} onChange={(e) => this.changeReason(e)} type='text' placeholder='eg: Browse some sick memes for a while' />
           <Title text='For how long?' />
           <RadioWrapper>
-            <Radio text='1 second' name='timer' timer={this.state.timer} value='1000' onChange={(e) => this.changeTimer(e)} />
-            <Radio text='10 seconds' name='timer' timer={this.state.timer} value='10000' onChange={(e) => this.changeTimer(e)} />
-            <Radio text='1 minute' name='timer' timer={this.state.timer} value='60000' onChange={(e) => this.changeTimer(e)} />
-            <Radio text='5 minutes' name='timer' timer={this.state.timer} value='300000' onChange={(e) => this.changeTimer(e)} />
+            <Radio text='1 second' value='1000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='10 seconds' value='10000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='1 minute' value='60000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='5 minutes' value='300000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <TimerSelector timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
           </RadioWrapper>
           <Button onClick={() => this.clickSave()} text={`Start using ${this.state.url}`} />
         </Wrapper>

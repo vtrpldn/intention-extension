@@ -3,15 +3,15 @@ import styled from 'styled-components'
 
 import Button from '../Button/Button'
 
+const Wrapper = styled.div`
+  margin-bottom: 50px;
+`
+
+const Table = styled.table`
+  margin-bottom: 20px;
+`
+
 const LogTable = ({ logs }) => {
-  const Wrapper = styled.div`
-    margin-bottom: 50px;
-  `
-
-  const Table = styled.table`
-    margin-bottom: 20px;
-  `
-
   const clearLog = () => {
     chrome.runtime.sendMessage({ type: 'CLEAR_LOG' }, () => {
       window.location.reload()
@@ -37,7 +37,7 @@ const LogTable = ({ logs }) => {
           </tr>
         ))}
       </Table>
-      <Button onClick={() => clearLog()} text='Clear log table' />
+      <Button block={false} onClick={() => clearLog()} text='Clear log table' />
     </Wrapper>
   )
 }

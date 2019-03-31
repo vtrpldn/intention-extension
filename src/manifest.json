@@ -10,21 +10,21 @@
     "manifest_version": 2,
     "background": {
         "scripts": [
-            "./build/js/background.js"
+            "./js/background.js"
         ],
         "persistent": false
     },
     "browser_action": {
-        "default_popup": "./build/html/popup.html"
+        "default_popup": "./html/popup.html"
     },
-    "options_page": "./build/html/options.html",
+    "options_page": "./html/options.html",
     "content_scripts": [
         {
           "matches": [
             "http://*/*",
             "https://*/*"
           ],
-          "js": ["./build/js/main.js"]
+          "js": ["./js/main.js"]
         }
       ]
 }

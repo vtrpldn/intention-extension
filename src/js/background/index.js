@@ -9,7 +9,7 @@ import {
 import {
   tabsCurrentUrl,
   tabsCloseMatch
-} from '../utils/wrappers/tabs';
+} from '../utils/wrappers/tabs'
 
 let siteList = ''
 
@@ -30,7 +30,6 @@ chrome.runtime.onMessage.addListener(
     switch (request.type) {
       case 'GET_PAGE_STATUS':
         tabsCurrentUrl((currentUrl) => {
-
           // check if on list of sites
           let isCurrentUrlOnList = getUrlListStatus(siteList, currentUrl)
 
@@ -45,7 +44,6 @@ chrome.runtime.onMessage.addListener(
               isCurrentUrlOnList
             })
           })
-
         })
         return true
 
@@ -59,7 +57,6 @@ chrome.runtime.onMessage.addListener(
 
       case 'SET_TIMER':
         tabsCurrentUrl((currentUrl) => {
-
           let activeTabData = {
             url: currentUrl,
             timer: request.timer / 1000,
@@ -69,16 +66,14 @@ chrome.runtime.onMessage.addListener(
           const intervalId = setInterval(() => {
             activeTabData.tick = activeTabData.tick + 1
 
-            console.log(`${activeTabData.url} says TICK! ${activeTabData.tick}s have passed`);
+            console.log(`${activeTabData.url} says TICK! ${activeTabData.tick}s have passed`)
 
             if (activeTabData.tick >= activeTabData.timer) {
-
-              console.log(`${activeTabData.url} says GOODBYE!`);
+              console.log(`${activeTabData.url} says GOODBYE!`)
 
               clearInterval(intervalId)
               removeSiteFromActiveList()
             }
-
           }, 1000)
 
           const removeSiteFromActiveList = () => {
@@ -116,7 +111,7 @@ chrome.runtime.onMessage.addListener(
             })
           }
         })
-        return true
+        break
 
       default:
         sendResponse(null)

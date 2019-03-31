@@ -2,9 +2,7 @@
 
 ### To do
 
-- [x] Refactor timer to use setInterval instead of setTimeout
 - [ ] Show active timers on pop up
-- [ ] Add an "other" field on "For how long?"
 - [ ] Finish styling options page
 - [ ] 90% coverage
 - [ ] Make form fields mandatory
@@ -13,6 +11,10 @@
 
 ### Done
 
+- [x] Refactor Coisa.js and create component for Label
+- [x] Add an "other" field on "For how long?"
+- [x] Refactor timer to use setInterval instead of setTimeout
+- [x] Move manifest to src and adapt webpack
 - [X] Close all tabs with domain when time runs out
 - [x] Remove website from active list when timer is over
 - [x] Debug weird active list behavior
@@ -29,3 +31,4 @@
 - [ ] i18n
 - [ ] Focus mode, a new setting that forces you to only browse that tab
 - [ ] Default lists
+- [ ] Custom default timers

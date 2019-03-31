@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
 import { getUrlListStatus } from './utils/siteCheck'
+import { phrome } from './utils/wrappers/phrome'
 
 import GlobalStyle from './GlobalStyle'
 import Button from './components/Button/Button'
+import Title from './components/Title/Title'
 
 const Wrapper = styled.div`
   width: 300px;
@@ -20,28 +22,21 @@ class Popup extends React.Component {
     super()
     this.state = {
       currentActiveUrl: '',
-      isCurrentUrlListed: null
+      isCurrentUrlListed: null,
+      activeSites: []
     }
   }
 
-  componentDidMount () {
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    }, (tabs) => {
-      let currentActiveUrl = new URL(tabs[0].url).hostname
+  async componentDidMount () {
+    const currentActiveUrl = await phrome.tabs.getCurrentUrl()
+    const {siteList, activeSites} = await phrome.storage.get(['siteList', 'activeSites'])
 
-      this.setState({
-        currentActiveUrl
-      })
-
-      chrome.storage.sync.get({
-        siteList: []
-      }, (items) => {
-        this.setState({
-          isCurrentUrlListed: getUrlListStatus(items.siteList, currentActiveUrl)
-        })
-      })
+    console.log('montou e peguei o', activeSites)
+    
+    this.setState({
+      currentActiveUrl,
+      isCurrentUrlListed: getUrlListStatus(siteList, currentActiveUrl),
+      activeSites
     })
   }
 
@@ -60,12 +55,24 @@ class Popup extends React.Component {
   }
 
   render () {
+    const {activeSites, isCurrentUrlListed} = this.state
+
+    console.log('activeSites:', activeSites)
+
     return (
       <Wrapper>
         <GlobalStyle />
+        {activeSites.length > 0 ? (
+          <div>
+            <Title text="Active timers:" />
+            {activeSites.map( (val, ind) => <Title key={ind} text={val.url}  />)}
+          </div> 
+        ) : (
+          ''
+        )}   
         <Button
           block
-          text={this.state.isCurrentUrlListed ? 'Remove this site from list' : 'Add this site to list'}
+          text={isCurrentUrlListed ? 'Remove this site from list' : 'Add this site to list'}
           onClick={() => this.toggleCurrentToList()}
         />
       </Wrapper>

@@ -21,7 +21,7 @@ const RadioWrapper = styled.div`
 `
 
 class Form extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       reason: '',
@@ -30,23 +30,25 @@ class Form extends Component {
     }
   }
 
-  changeReason (e) {
+  changeReason(e) {
     this.setState({
       reason: e.target.value
     })
   }
 
-  changeTimer (e) {
+  changeTimer(e) {
     console.log(e.target.value)
     this.setState({
       timer: e.target.value
     })
   }
 
-  clickSave () {
-    // prepare data object
+  clickSave() {
+    const NOW = Math.floor(Date.now() / 1000)
+    
+    // prepare log object
     let data = {
-      timestamp: new Date().toLocaleDateString('en-us'), // Remember to do some i18n in this later
+      timestamp: NOW,
       url: this.state.url,
       reason: this.state.reason,
       time: this.state.timer
@@ -56,13 +58,18 @@ class Form extends Component {
     chrome.runtime.sendMessage({ type: 'WRITE_LOG', data })
 
     // start timer
-    chrome.runtime.sendMessage({ type: 'SET_TIMER', timer: this.state.timer })
+    chrome.runtime.sendMessage({
+      type: 'SET_TIMER', data: {
+        timestamp: NOW,
+        timer: this.state.timer,
+      }
+    })
 
     // hide overlay
     this.props.hideOverlay()
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Wrapper>

@@ -61,11 +61,12 @@ chrome.runtime.onMessage.addListener(
       case 'SET_TIMER':
         tabsCurrentUrl((currentUrl) => {
           let activeTabData = {
+            timestamp: request.data.timestamp,
+            timer: request.data.timer / 1000,
             url: currentUrl,
-            timer: request.timer / 1000,
             tick: 0
           }
-
+ 
           const intervalId = setInterval(() => {
             activeTabData.tick = activeTabData.tick + 1
 
@@ -84,6 +85,7 @@ chrome.runtime.onMessage.addListener(
           storagePush('activeSites', {
             url: activeTabData.url,
             timer: activeTabData.timer,
+            timestamp: activeTabData.timestamp,
             intervalId
           })
         })

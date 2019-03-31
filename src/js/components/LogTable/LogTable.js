@@ -12,6 +12,7 @@ const Table = styled.table`
 `
 
 const LogTable = ({ logs }) => {
+
   const clearLog = () => {
     chrome.runtime.sendMessage({ type: 'CLEAR_LOG' }, () => {
       window.location.reload()
@@ -22,20 +23,22 @@ const LogTable = ({ logs }) => {
   return (
     <Wrapper>
       <Table>
-        <tr>
-          <th>Timestamp</th>
-          <th>URL</th>
-          <th>Reason</th>
-          <th>Time</th>
-        </tr>
-        {logs.map((val, ind) => (
-          <tr key={ind}>
-            <td>{val.timestamp}</td>
-            <td>{val.url}</td>
-            <td>{val.reason}</td>
-            <td>{val.time}</td>
+        <tbody>
+          <tr>
+            <th>Timestamp</th>
+            <th>URL</th>
+            <th>Reason</th>
+            <th>Time</th>
           </tr>
-        ))}
+          {logs.map((val, ind) => (
+            <tr key={ind}>
+              <td>{val.timestamp}</td>
+              <td>{val.url}</td>
+              <td>{val.reason}</td>
+              <td>{val.time}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
       <Button block={false} onClick={() => clearLog()} text='Clear log table' />
     </Wrapper>

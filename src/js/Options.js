@@ -80,6 +80,7 @@ class Options extends React.Component {
           </div>
           <div>
             <Title text='Usage log' />
+            {console.log(this.state.logs)}
             <LogTable logs={this.state.logs !== undefined ? this.state.logs : []} />
           </div>
           <Button block onClick={this.saveConfig.bind(this)} text='Save all' />

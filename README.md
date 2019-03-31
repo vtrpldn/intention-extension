@@ -2,15 +2,16 @@
 
 ### To do
 
-- [ ] Show active timers on pop up
+- [ ] 90% coverage
+- [ ] Add countdown to Popup
 - [ ] Make form fields mandatory
 - [ ] Finish styling options page
-- [ ] 90% coverage
 - [ ] Create some kind of pattern for dealing with sendResponse?
 - [ ] Write a proper Readme
 
 ### Done
 
+- [x] Show active timers on pop up
 - [x] Refactor Coisa.js and create component for Label
 - [x] Add an "other" field on "For how long?"
 - [x] Refactor timer to use setInterval instead of setTimeout

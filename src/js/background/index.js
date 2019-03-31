@@ -2,11 +2,13 @@ import {
   getUrlListStatus,
   getUrlActiveStatus
 } from '../utils/siteCheck'
+
 import {
   storagePush,
   storageClear,
   storageFilter
 } from '../utils/wrappers/storage'
+
 import {
   tabsCurrentUrl,
   tabsCloseMatch
@@ -58,7 +60,6 @@ chrome.runtime.onMessage.addListener(
 
       case 'SET_TIMER':
         tabsCurrentUrl((currentUrl) => {
-
           let activeTabData = {
             url: currentUrl,
             timer: request.timer / 1000,
@@ -74,7 +75,7 @@ chrome.runtime.onMessage.addListener(
               console.log(`${activeTabData.url} says GOODBYE!`)
 
               clearInterval(intervalId)
-              
+
               // Remove activeTabData.url from activeSites list and close tabs after it is done
               storageFilter('activeSites', (v) => v.url !== activeTabData.url, tabsCloseMatch(activeTabData.url))
             }
@@ -86,7 +87,7 @@ chrome.runtime.onMessage.addListener(
             intervalId
           })
         })
-        
+
         break
 
       case 'TOGGLE_CURRENT_SITE':
@@ -106,6 +107,7 @@ chrome.runtime.onMessage.addListener(
             })
           }
         })
+        sendResponse(null)
         break
 
       default:

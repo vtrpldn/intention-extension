@@ -26,10 +26,12 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({
       chunks: ['options'],
+      title: 'Options - Intension Ext',
       filename: '../html/options.html'
     }),
     new HtmlWebpackPlugin({
       chunks: ['popup'],
+      title: 'Popup - Intention Ext',
       filename: '../html/popup.html'
     }),
     new CleanWebpackPlugin()

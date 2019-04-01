@@ -12,7 +12,6 @@ const Table = styled.table`
 `
 
 const LogTable = ({ logs }) => {
-
   const clearLog = () => {
     chrome.runtime.sendMessage({ type: 'CLEAR_LOG' }, () => {
       window.location.reload()

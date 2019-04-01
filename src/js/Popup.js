@@ -29,10 +29,10 @@ class Popup extends React.Component {
 
   async componentDidMount () {
     const currentActiveUrl = await phrome.tabs.getCurrentUrl()
-    const {siteList, activeSites} = await phrome.storage.get(['siteList', 'activeSites'])
+    const { siteList, activeSites } = await phrome.storage.get(['siteList', 'activeSites'])
 
-    console.log('montou e peguei o', activeSites)
-    
+    console.log('componentDidMount activeSites:', activeSites)
+
     this.setState({
       currentActiveUrl,
       isCurrentUrlListed: getUrlListStatus(siteList, currentActiveUrl),
@@ -48,6 +48,8 @@ class Popup extends React.Component {
     }, () => {
       // Refactor this to include into state
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        console.log('TABS:', tabs)
+
         chrome.tabs.update(tabs[0].id, { url: tabs[0].url })
         window.close()
       })
@@ -55,7 +57,7 @@ class Popup extends React.Component {
   }
 
   render () {
-    const {activeSites, isCurrentUrlListed} = this.state
+    const { activeSites, isCurrentUrlListed } = this.state
 
     console.log('activeSites:', activeSites)
 
@@ -64,12 +66,12 @@ class Popup extends React.Component {
         <GlobalStyle />
         {activeSites.length > 0 ? (
           <div>
-            <Title text="Active timers:" />
-            {activeSites.map( (val, ind) => <Title key={ind} text={val.url}  />)}
-          </div> 
+            <Title text='Active timers:' />
+            {activeSites.map((val, ind) => <Title key={ind} text={val.url} />)}
+          </div>
         ) : (
           ''
-        )}   
+        )}
         <Button
           block
           text={isCurrentUrlListed ? 'Remove this site from list' : 'Add this site to list'}

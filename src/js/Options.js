@@ -36,18 +36,15 @@ class Options extends React.Component {
     super()
     this.state = {
       siteList: '',
-      logs: [
-        {
-          timestamp: 'timestamp',
-          reason: 'reason',
-          time: 'time'
-        }
-      ]
+      logs: []
     }
   }
 
   componentDidMount () {
-    chrome.storage.sync.get(['siteList', 'logs'], (items) => {
+    chrome.storage.sync.get({
+      siteList: [],
+      logs: []
+    }, (items) => {
       this.setState({
         siteList: items.siteList.join('\n'),
         logs: items.logs

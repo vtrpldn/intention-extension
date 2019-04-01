@@ -14,37 +14,42 @@ import {
   tabsCloseMatch
 } from '../utils/wrappers/tabs'
 
-let siteList = ''
+const INITIAL_STATE = {
+  siteList: [],
+  activeSites: [],
+  logs: []
+}
 
-// New page listener
-chrome.tabs.onUpdated.addListener(function () {
-  chrome.storage.sync.get({
-    siteList: [],
-    activeSites: []
-  }, function (items) {
-    console.log('siteList:', items.siteList)
-    siteList = items.siteList
+// INITIALIZE EXTENSION STATE
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set(INITIAL_STATE, () => {
+    console.log('DEBUG: STORAGE INITIALIZED')
   })
 })
 
 // Content Message Listener
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
+
+    console.log('DEBUG: MESSAGE RECEIVED', request.type)
+
     switch (request.type) {
       case 'GET_PAGE_STATUS':
         tabsCurrentUrl((currentUrl) => {
-          // check if on list of sites
-          let isCurrentUrlOnList = getUrlListStatus(siteList, currentUrl)
+          chrome.storage.sync.get(['siteList'], ({ siteList }) => {
+            // check if on list of sites
+            let isCurrentUrlOnList = getUrlListStatus(siteList, currentUrl)
 
-          // check if is already in ACTIVE_SITES_LIST
-          chrome.storage.sync.get({
-            activeSites: []
-          }, function (items) {
-            let isCurrentUrlActive = getUrlActiveStatus(items.activeSites, currentUrl)
+            // check if is already in ACTIVE_SITES_LIST
+            chrome.storage.sync.get({
+              activeSites: []
+            }, function (items) {
+              let isCurrentUrlActive = getUrlActiveStatus(items.activeSites, currentUrl)
 
-            sendResponse({
-              isCurrentUrlActive,
-              isCurrentUrlOnList
+              sendResponse({
+                isCurrentUrlActive,
+                isCurrentUrlOnList
+              })
             })
           })
         })
@@ -60,17 +65,19 @@ chrome.runtime.onMessage.addListener(
 
       case 'SET_TIMER':
         tabsCurrentUrl((currentUrl) => {
+          console.log('SET_TIMER currentUrl', currentUrl)
+
           let activeTabData = {
             timestamp: request.data.timestamp,
             timer: request.data.timer / 1000,
             url: currentUrl,
             tick: 0
           }
- 
+
           const intervalId = setInterval(() => {
             activeTabData.tick = activeTabData.tick + 1
 
-            console.log(`${activeTabData.url} says TICK! ${activeTabData.tick}s have passed`)
+            console.log(`${activeTabData.url} says TICK! ${activeTabData.timer - activeTabData.tick}s left...`)
 
             if (activeTabData.tick >= activeTabData.timer) {
               console.log(`${activeTabData.url} says GOODBYE!`)

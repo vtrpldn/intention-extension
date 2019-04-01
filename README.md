@@ -2,8 +2,9 @@
 
 ### To do
 
+- [ ] Deactivate on Popup remove 
 - [ ] 90% coverage
-- [ ] Add countdown to Popup
+- [ ] Add countdown to Popup (create a new component to handle that)
 - [ ] Make form fields mandatory
 - [ ] Finish styling options page
 - [ ] Create some kind of pattern for dealing with sendResponse?

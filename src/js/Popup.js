@@ -7,7 +7,7 @@ import { phrome } from './utils/wrappers/phrome'
 
 import GlobalStyle from './GlobalStyle'
 import Button from './components/Button/Button'
-import Title from './components/Title/Title'
+import Countdown from './components/Countdown/Countdown'
 
 const Wrapper = styled.div`
   width: 300px;
@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   padding: 20px 25px;
   background: black;
   color: white;
+`
+
+const CountdownList = styled.div`
+  margin-bottom: 15px;
+  border-bottom: solid 1px white;
 `
 
 class Popup extends React.Component {
@@ -59,19 +64,16 @@ class Popup extends React.Component {
   render () {
     const { activeSites, isCurrentUrlListed } = this.state
 
-    console.log('activeSites:', activeSites)
-
     return (
       <Wrapper>
         <GlobalStyle />
-        {activeSites.length > 0 ? (
-          <div>
-            <Title text='Active timers:' />
-            {activeSites.map((val, ind) => <Title key={ind} text={val.url} />)}
-          </div>
-        ) : (
-          ''
+
+        {activeSites.length > 0 && (
+          <CountdownList>
+            {activeSites.map((val, ind) => <Countdown key={ind} item={val} />)}
+          </CountdownList>
         )}
+
         <Button
           block
           text={isCurrentUrlListed ? 'Remove this site from list' : 'Add this site to list'}

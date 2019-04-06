@@ -78,9 +78,9 @@ class Form extends Component {
           <Input value={this.state.reason} onChange={(e) => this.changeReason(e)} type='text' placeholder='eg: Browse some sick memes for a while' />
           <Title text='For how long?' />
           <RadioWrapper>
-            <Radio text='1 second' value='1000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
-            <Radio text='1 minute' value='60000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
-            <Radio text='5 minutes' value='300000' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='1 second' value='1' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='1 minute' value='60' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='5 minutes' value='300' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
             <TimerSelector timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
           </RadioWrapper>
           <Button onClick={() => this.clickSave()} text={`Start using ${this.state.url}`} />

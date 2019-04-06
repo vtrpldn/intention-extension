@@ -53,7 +53,7 @@ class TimerSelector extends Component {
               onChange={(e) => this.handleChange(e)}
               onFocus={(e) => this.handleChange(e)}
             />
-            miliseconds
+            seconds
           </div>
         ) : (
           'Other'

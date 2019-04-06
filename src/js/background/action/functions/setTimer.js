@@ -14,7 +14,7 @@ export const setTimer = (request) => {
 
     let activeTabData = {
       timestamp: request.data.timestamp,
-      timer: request.data.timer / 1000,
+      timer: request.data.timer,
       url: currentUrl,
       tick: 0
     }

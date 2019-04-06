@@ -2,16 +2,15 @@
 
 ### To do
 
-- [ ] Add countdown to Popup (create a new component to handle that)
-- [ ] 90% coverage
-- [ ] Add countdown to Popup (create a new component to handle that)
+- [ ] Kill active if not on list (maybe on getPageStatus)
 - [ ] Make form fields mandatory
+- [ ] 90% coverage
 - [ ] Finish styling options page
-- [ ] Create some kind of pattern for dealing with sendResponse?
 - [ ] Write a proper Readme
 
 ### Done
 
+- [x] Add countdown to Popup (create a new component to handle that)
 - [x] Show active timers on pop up
 - [x] Refactor Coisa.js and create component for Label
 - [x] Add an "other" field on "For how long?"

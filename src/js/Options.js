@@ -15,7 +15,6 @@ const Wrapper = styled.div`
 `
 
 const Panel = styled.div`
-  max-width: 40vw;
 `
 
 const Textarea = styled.textarea`

@@ -5,7 +5,6 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  devtool: 'cheap-module-source-map',
   entry: {
     background: './src/js/background/index.js',
     popup: './src/js/Popup.js',

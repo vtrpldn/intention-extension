@@ -3,10 +3,6 @@
 
 ## Roadmap
 
-### RC1
-
-- [ ] Make form fields mandatory
-
 ### 1.0.0
 
 - [ ] 90% coverage

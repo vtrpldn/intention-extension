@@ -11,6 +11,18 @@ const Wrapper = styled.div`
 
 const Table = styled.table`
   margin-bottom: 20px;
+  width: 100%;
+  table-layout: fixed;
+  font-size: 16px;
+`
+
+const TH = styled.th`
+  font-size: 16px;
+  text-align: left;
+`
+
+const TD = styled.td`
+  padding: 5px 0;
 `
 
 const LogTable = ({ logs }) => {
@@ -25,17 +37,17 @@ const LogTable = ({ logs }) => {
       <Table>
         <tbody>
           <tr>
-            <th>Timestamp</th>
-            <th>URL</th>
-            <th>Reason</th>
-            <th>Time</th>
+            <TH>Timestamp</TH>
+            <TH>URL</TH>
+            <TH>Reason</TH>
+            <TH>Time</TH>
           </tr>
           {logs.map((val, ind) => (
             <tr key={ind}>
-              <td>{new Date(val.timestamp * 1000).toLocaleString('en-us')}</td>
-              <td>{val.url}</td>
-              <td>{val.reason}</td>
-              <td>{secondToClock(val.time)}</td>
+              <TD>{new Date(val.timestamp * 1000).toLocaleString('en-us')}</TD>
+              <TD>{val.url}</TD>
+              <TD>{val.reason}</TD>
+              <TD>{secondToClock(val.time)}</TD>
             </tr>
           ))}
         </tbody>

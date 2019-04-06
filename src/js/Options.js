@@ -67,19 +67,25 @@ class Options extends React.Component {
   }
 
   render () {
+
+  const { logs, siteList } = this.state 
+
+    console.log('DEBUG: Current Logs:', logs)
+
     return (
       <Wrapper>
         <GlobalStyle />
         <Panel>
           <div>
             <Title text='Restricted sites' />
-            <Textarea onChange={(e) => this.onChange(e)} value={this.state.siteList} />
+            <Textarea onChange={(e) => this.onChange(e)} value={siteList} />
           </div>
-          <div>
-            <Title text='Usage log' />
-            {console.log(this.state.logs)}
-            <LogTable logs={this.state.logs !== undefined ? this.state.logs : []} />
-          </div>
+          {logs.length > 0 && (
+            <div>
+              <Title text='Usage log' />
+              <LogTable logs={logs} />
+            </div>
+          )}
           <Button block onClick={this.saveConfig.bind(this)} text='Save all' />
         </Panel>
       </Wrapper>

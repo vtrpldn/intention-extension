@@ -5,12 +5,12 @@
 - [ ] Kill active if not on list (maybe on getPageStatus)
 - [ ] Make form fields mandatory
 - [ ] 90% coverage
-- [ ] Finish styling options page
 - [ ] Write a proper Readme
 - [ ] Remove debug utilities
 
 ### Done
 
+- [x] Finish styling options page
 - [x] Add countdown to Popup (create a new component to handle that)
 - [x] Show active timers on pop up
 - [x] Refactor Coisa.js and create component for Label

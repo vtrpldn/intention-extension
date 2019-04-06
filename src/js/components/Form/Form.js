@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   background: black;
   color: white;
   width: 100%;
-  max-width: 70vw;
+  max-width: 40vw;
   height: 100vh;
   padding: 40px 50px;
 `
@@ -25,7 +25,7 @@ class Form extends Component {
     super(props)
     this.state = {
       reason: '',
-      timer: 2000,
+      timer: 1000,
       url: window.location.hostname
     }
   }

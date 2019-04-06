@@ -2,7 +2,7 @@
 
 ### To do
 
-- [ ] Deactivate on Popup remove 
+- [ ] Add countdown to Popup (create a new component to handle that)
 - [ ] 90% coverage
 - [ ] Add countdown to Popup (create a new component to handle that)
 - [ ] Make form fields mandatory

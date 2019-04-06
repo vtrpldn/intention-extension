@@ -2,8 +2,6 @@
 
 ### To do
 
-- [ ] Kill active if not on list (maybe on getPageStatus)
-- [ ] Remove Active from popup when timer is done
 - [ ] Make form fields mandatory
 - [ ] 90% coverage
 - [ ] Write a proper Readme
@@ -11,6 +9,8 @@
 
 ### Done
 
+- [x] Kill active if not on list (maybe on getPageStatus)
+- [x] Remove Active from popup when timer is done
 - [x] Finish styling options page
 - [x] Add countdown to Popup (create a new component to handle that)
 - [x] Show active timers on pop up

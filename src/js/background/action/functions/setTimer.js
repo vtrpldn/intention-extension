@@ -15,7 +15,7 @@ export const setTimer = (request) => {
     const intervalId = setInterval(() => {
       activeTabData.tick = activeTabData.tick + 1
 
-      console.log(`${activeTabData.url} says TICK! ${activeTabData.timer - activeTabData.tick}s left...`)
+      console.log(`${activeTabData.url} says TICK! ${activeTabData.timer - activeTabData.tick}s left... | ${intervalId}`)
 
       if (activeTabData.tick >= activeTabData.timer) {
         console.log(`${activeTabData.url} says GOODBYE!`)

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   background: black;
   color: white;
   padding: 40px 50px;
-  height: 100vh;
+  min-height: 100vh;
 `
 
 const Panel = styled.div`
@@ -26,13 +26,13 @@ const Textarea = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 200px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   color: white;
   font-size: 16px;
   resize: none;
 `
 class Options extends React.Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       siteList: '',
@@ -40,7 +40,7 @@ class Options extends React.Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     chrome.storage.sync.get({
       siteList: [],
       logs: []
@@ -52,23 +52,23 @@ class Options extends React.Component {
     })
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
       siteList: e.target.value
     })
   }
 
-  saveConfig () {
+  saveConfig() {
     chrome.storage.sync.set({
       siteList: this.state.siteList.trim().split('\n')
     }, function () {
-      alert('Saved, my dude')
+      alert('Saved!')
     })
   }
 
-  render () {
+  render() {
 
-  const { logs, siteList } = this.state 
+    const { logs, siteList } = this.state
 
     console.log('DEBUG: Current Logs:', logs)
 
@@ -76,17 +76,17 @@ class Options extends React.Component {
       <Wrapper>
         <GlobalStyle />
         <Panel>
-          <div>
-            <Title text='Restricted sites' />
-            <Textarea onChange={(e) => this.onChange(e)} value={siteList} />
-          </div>
+
+          <Title text='Restricted sites' />
+          <Textarea onChange={(e) => this.onChange(e)} value={siteList} />
+          <Button onClick={this.saveConfig.bind(this)} text='Save all' />
+
           {logs.length > 0 && (
             <div>
               <Title text='Usage log' />
               <LogTable logs={logs} />
             </div>
           )}
-          <Button block onClick={this.saveConfig.bind(this)} text='Save all' />
         </Panel>
       </Wrapper>
     )

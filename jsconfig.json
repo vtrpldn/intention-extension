@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    /* We need this because otherwise 
+     * "Jump To Definition" wouldn't work 
+     * in VS Code
+     */
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "*",
+        "src/js/*"
+      ]
+    }
+  }
+}

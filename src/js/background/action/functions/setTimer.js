@@ -1,12 +1,5 @@
-import {
-  tabsCurrentUrl,
-  tabsCloseMatch
-} from '../../../utils/wrappers/tabs'
-
-import {
-  storagePush,
-  storageFilter
-} from '../../../utils/wrappers/storage'
+import { tabsCurrentUrl, tabsCloseMatch } from 'utils/wrappers/tabs'
+import { storagePush, storageFilter } from 'utils/wrappers/storage'
 
 export const setTimer = (request) => {
   return tabsCurrentUrl((currentUrl) => {

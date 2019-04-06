@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
+import GlobalStyle from 'GlobalStyle'
 
-import GlobalStyle from './GlobalStyle'
-import Title from './components/Title/Title'
-import Button from './components/Button/Button'
-import LogTable from './components/LogTable/LogTable'
+import Title from 'components/Title/Title'
+import Button from 'components/Button/Button'
+import LogTable from 'components/LogTable/LogTable'
 
 const Wrapper = styled.div`
   background: black;

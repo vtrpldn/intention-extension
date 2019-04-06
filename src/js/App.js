@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import Form from './components/Form/Form'
 import styled from 'styled-components'
-import GlobalStyle from './GlobalStyle'
+import GlobalStyle from 'GlobalStyle'
+
+import Form from 'components/Form/Form'
 
 const Wrapper = styled.div`
   display: ${({ display }) => display};

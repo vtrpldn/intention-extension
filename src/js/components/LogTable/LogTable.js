@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { secondToClock } from '../../utils/clock'
+
 import Button from '../Button/Button'
 
 const Wrapper = styled.div`
@@ -15,7 +17,6 @@ const LogTable = ({ logs }) => {
   const clearLog = () => {
     chrome.runtime.sendMessage({ type: 'CLEAR_LOG' }, () => {
       window.location.reload()
-      alert('Cleared!')
     })
   }
 
@@ -31,10 +32,10 @@ const LogTable = ({ logs }) => {
           </tr>
           {logs.map((val, ind) => (
             <tr key={ind}>
-              <td>{val.timestamp}</td>
+              <td>{new Date(val.timestamp * 1000).toLocaleString('en-us')}</td>
               <td>{val.url}</td>
               <td>{val.reason}</td>
-              <td>{val.time}</td>
+              <td>{secondToClock(val.time)}</td>
             </tr>
           ))}
         </tbody>

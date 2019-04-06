@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
+import GlobalStyle from 'GlobalStyle'
 
-import { getUrlListStatus } from './utils/siteCheck'
-import { phrome } from './utils/wrappers/phrome'
+import { getUrlListStatus } from 'utils/siteCheck'
+import { phrome } from 'utils/wrappers/phrome'
 
-import GlobalStyle from './GlobalStyle'
-import Button from './components/Button/Button'
-import Countdown from './components/Countdown/Countdown'
+import Button from 'components/Button/Button'
+import Countdown from 'components/Countdown/Countdown'
 
 const Wrapper = styled.div`
   width: 300px;

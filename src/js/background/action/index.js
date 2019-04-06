@@ -1,11 +1,8 @@
-import {
-  storagePush,
-  storageClear
-} from '../../utils/wrappers/storage'
+import { storagePush, storageClear } from 'utils/wrappers/storage'
 
-import getPageStatus from './functions/getPageStatus'
-import setTimer from './functions/setTimer'
-import toggleCurrentSite from './functions/toggleCurrentSite'
+import getPageStatus from 'background/action/functions/getPageStatus'
+import setTimer from 'background/action/functions/setTimer'
+import toggleCurrentSite from 'background/action/functions/toggleCurrentSite'
 
 const action = {
   getPageStatus,

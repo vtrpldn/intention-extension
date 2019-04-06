@@ -7,6 +7,7 @@
 - [ ] 90% coverage
 - [ ] Finish styling options page
 - [ ] Write a proper Readme
+- [ ] Remove debug utilities
 
 ### Done
 

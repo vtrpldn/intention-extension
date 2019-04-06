@@ -1,4 +1,4 @@
-import action from '../action/index'
+import action from 'background/action/index'
 
 export const onMessage = (request, sender, sendResponse) => {
   console.log('DEBUG: MESSAGE RECEIVED', request.type)

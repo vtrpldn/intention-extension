@@ -1,11 +1,5 @@
-import {
-  getUrlListStatus,
-  getUrlActiveStatus
-} from '../../../utils/siteCheck'
-
-import {
-  tabsCurrentUrl
-} from '../../../utils/wrappers/tabs'
+import { getUrlListStatus, getUrlActiveStatus } from 'utils/siteCheck'
+import { tabsCurrentUrl } from 'utils/wrappers/tabs'
 
 export const getPageStatus = (sendResponse) => {
   return tabsCurrentUrl((currentUrl) => {

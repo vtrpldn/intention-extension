@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   background: black;
   color: white;
   width: 100%;
-  max-width: 40vw;
+  max-width: 50vw;
   height: 100vh;
   padding: 40px 50px;
 `
@@ -25,8 +25,9 @@ class Form extends Component {
     super(props)
     this.state = {
       reason: '',
-      timer: 1000,
-      url: window.location.hostname
+      timer: 300,
+      url: window.location.hostname,
+      
     }
   }
 
@@ -75,12 +76,12 @@ class Form extends Component {
       <div>
         <Wrapper>
           <Title text='Why do you want to use this website?' />
-          <Input value={this.state.reason} onChange={(e) => this.changeReason(e)} type='text' placeholder='eg: Browse some sick memes for a while' />
+          <Input value={this.state.reason} onChange={(e) => this.changeReason(e)} type='text' placeholder='eg: Read the news for a while...' />
           <Title text='For how long?' />
           <RadioWrapper>
             <Radio text='1 second' value='1' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
-            <Radio text='1 minute' value='60' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
             <Radio text='5 minutes' value='300' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='15 minutes' value='900' name='timer' timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
             <TimerSelector timer={this.state.timer} onChange={(e) => this.changeTimer(e)} />
           </RadioWrapper>
           <Button onClick={() => this.clickSave()} text={`Start using ${this.state.url}`} />

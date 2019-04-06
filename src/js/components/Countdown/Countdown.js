@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `
 
 class Countdown extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       NOW: Math.floor(Date.now() / 1000),
@@ -19,7 +19,7 @@ class Countdown extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     setInterval(() => {
       this.setState({
         NOW: Math.floor(Date.now() / 1000)
@@ -27,21 +27,27 @@ class Countdown extends Component {
     }, 1000)
   }
 
-  render () {
+  render() {
     const { NOW } = this.state
     const { url, timer, timestamp } = this.props.item
     const offset = timer - (NOW - timestamp)
     const countdown = secondToClock(offset)
 
     return (
-      <Wrapper>
-        <div>
-          {url}
-        </div>
-        <div>
-          {countdown}
-        </div>
-      </Wrapper>
+      <div>
+        {offset >= 0 ? (
+          <Wrapper>
+            <div>
+              {url}
+            </div>
+            <div>
+              {countdown}
+            </div>
+          </Wrapper>
+        ) : (
+            ''
+          )}
+      </div>
     )
   }
 }

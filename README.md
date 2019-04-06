@@ -3,6 +3,7 @@
 ### To do
 
 - [ ] Kill active if not on list (maybe on getPageStatus)
+- [ ] Remove Active from popup when timer is done
 - [ ] Make form fields mandatory
 - [ ] 90% coverage
 - [ ] Write a proper Readme

@@ -1,7 +1,7 @@
 {
   "name": "Intention Extension",
   "version": "1.0.0",
-  "description": "Reclaim meaninfullness browsing with this extension that makes you think about your digital habits.",
+  "description": "Reclaim meaningfull browsing with an extension that makes you ponder your digital habits.",
   "permissions": [
     "storage",
     "declarativeContent",

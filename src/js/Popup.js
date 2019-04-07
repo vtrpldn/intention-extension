@@ -36,7 +36,7 @@ class Popup extends React.Component {
     const currentActiveUrl = await phrome.tabs.getCurrentUrl()
     const { siteList, activeSites } = await phrome.storage.get(['siteList', 'activeSites'])
 
-    if (__DEV__) {
+    if (__DEV__ !== undefined) {
       console.log('componentDidMount activeSites:', activeSites)
     }
 
@@ -56,7 +56,7 @@ class Popup extends React.Component {
       // Refactor this to include into state
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         
-        if (__DEV__) {
+        if (__DEV__ !== undefined) {
           console.log('TABS:', tabs)
         }
 

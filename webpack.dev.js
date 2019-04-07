@@ -24,7 +24,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(true),
+      __DEV__: true,
+      __PROD__: false,
     }),
     new CopyPlugin([
       { from: './src/manifest.json', to: '../manifest.json' },

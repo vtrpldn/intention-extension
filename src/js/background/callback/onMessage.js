@@ -1,7 +1,10 @@
 import action from 'background/action/index'
 
 export const onMessage = (request, sender, sendResponse) => {
-  console.log('DEBUG: MESSAGE RECEIVED', request.type)
+
+  if (__DEV__) {
+    console.log('DEBUG: MESSAGE RECEIVED', request.type)
+  }
 
   switch (request.type) {
     case 'GET_PAGE_STATUS':

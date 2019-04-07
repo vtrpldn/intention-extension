@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -22,8 +23,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: JSON.stringify(true),
+    }),
     new CopyPlugin([
-      { from: './src/manifest.json', to: '../manifest.json' }
+      { from: './src/manifest.json', to: '../manifest.json' },
+      { from: './src/img', to: '../img' }
     ]),
     new HtmlWebpackPlugin({
       chunks: ['options'],

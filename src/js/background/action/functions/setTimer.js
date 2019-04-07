@@ -18,7 +18,7 @@ export const setTimer = (request) => {
      */
     let activeSite = {
       timestamp: request.data.timestamp,
-      timer: request.data.timer,
+      timer: request.data.timer * 60,
       url: currentUrl,
       tick: 0
     }
@@ -31,10 +31,11 @@ export const setTimer = (request) => {
     const intervalId = setInterval(() => {
       activeSite.tick = activeSite.tick + 1
 
-      console.log(`${activeSite.url} says TICK! ${activeSite.timer - activeSite.tick}s left... | ${intervalId}`)
+      __DEV__ && console.log(`${activeSite.url} says TICK! ${activeSite.timer - activeSite.tick}s left... | ${intervalId}`)
 
       if (activeSite.tick >= activeSite.timer) {
-        console.log(`${activeSite.url} says GOODBYE!`)
+        
+        __DEV__ && console.log(`${activeSite.url} says GOODBYE!`)
 
         clearInterval(intervalId)
         storageFilter('activeSites', (v) => v.url !== activeSite.url, tabsCloseMatch(activeSite.url))

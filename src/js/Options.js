@@ -69,7 +69,7 @@ class Options extends React.Component {
 
     const { logs, siteList } = this.state
 
-    console.log('DEBUG: Current Logs:', logs)
+    __DEV__ && console.log('DEBUG: Current Logs:', logs)
 
     return (
       <Wrapper>

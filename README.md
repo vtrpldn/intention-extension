@@ -1,5 +1,6 @@
 # Intention Extension
 
+Current version: Beta 1.0.0
 
 ## Roadmap
 

@@ -53,8 +53,12 @@ chrome.runtime.sendMessage({ type: 'GET_PAGE_STATUS' }, ({
   isCurrentUrlActive,
   isCurrentUrlOnList
 }) => {
-  console.log('isCurrentUrlActive:', isCurrentUrlActive)
-  console.log('isCurrentUrlOnList:', isCurrentUrlOnList)
+  
+  if (__DEV__) {
+    console.log('isCurrentUrlActive:', isCurrentUrlActive)
+    console.log('isCurrentUrlOnList:', isCurrentUrlOnList)
+  }
+
   if (isCurrentUrlOnList === true && isCurrentUrlActive === false) {
     const app = document.createElement('div')
     document.body.appendChild(app)

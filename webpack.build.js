@@ -22,7 +22,8 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin([
-      { from: './src/manifest.json', to: '../manifest.json' }
+      { from: './src/manifest.json', to: '../manifest.json' },
+      { from: './src/img', to: '../img' }
     ]),
     new HtmlWebpackPlugin({
       chunks: ['options'],

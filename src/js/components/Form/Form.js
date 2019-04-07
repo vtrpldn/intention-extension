@@ -38,7 +38,9 @@ class Form extends Component {
   }
 
   changeTimer (e) {
-    console.log(e.target.value)
+    
+    __DEV__ && console.log(e.target.value)
+
     this.setState({
       timer: e.target.value
     })
@@ -89,8 +91,8 @@ class Form extends Component {
           <Input value={reason} onChange={(e) => this.changeReason(e)} type='text' placeholder='eg: Read the news for a while...' />
           <Title text='For how long?' />
           <RadioWrapper>
-            <Radio text='5 minutes' value='300' name='timer' timer={timer} onChange={(e) => this.changeTimer(e)} />
-            <Radio text='15 minutes' value='900' name='timer' timer={timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='5 minutes' value='5' name='timer' timer={timer} onChange={(e) => this.changeTimer(e)} />
+            <Radio text='15 minutes' value='15' name='timer' timer={timer} onChange={(e) => this.changeTimer(e)} />
             <TimerSelector timer={timer} onChange={(e) => this.changeTimer(e)} />
           </RadioWrapper>
           <Button onClick={() => this.clickSave()} text={`Start using ${url}`} />

@@ -31,11 +31,15 @@ export const setTimer = (request) => {
     const intervalId = setInterval(() => {
       activeSite.tick = activeSite.tick + 1
 
-      __DEV__ && console.log(`${activeSite.url} says TICK! ${activeSite.timer - activeSite.tick}s left... | ${intervalId}`)
+      if (__DEV__) {
+        console.log(`${activeSite.url} says TICK! ${activeSite.timer - activeSite.tick}s left... | ${intervalId}`) 
+      }
 
       if (activeSite.tick >= activeSite.timer) {
-        
-        __DEV__ && console.log(`${activeSite.url} says GOODBYE!`)
+
+        if (__DEV__) {
+          console.log(`${activeSite.url} says GOODBYE!`)
+        }
 
         clearInterval(intervalId)
         storageFilter('activeSites', (v) => v.url !== activeSite.url, tabsCloseMatch(activeSite.url))

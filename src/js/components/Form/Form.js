@@ -38,8 +38,10 @@ class Form extends Component {
   }
 
   changeTimer (e) {
-    
-    __DEV__ && console.log(e.target.value)
+
+    if (__DEV__) {
+      console.log(e.target.value)
+    }
 
     this.setState({
       timer: e.target.value

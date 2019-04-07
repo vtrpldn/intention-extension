@@ -6,6 +6,8 @@ const INITIAL_STATE = {
 
 export const onInstalled = () => {
   chrome.storage.sync.set(INITIAL_STATE, () => {
-    __DEV__ && console.log('DEBUG: STORAGE INITIALIZED')
+    if (__DEV__) {
+      console.log('DEBUG: STORAGE INITIALIZED')
+    }
   })
 }

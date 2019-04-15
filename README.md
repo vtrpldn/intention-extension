@@ -1,18 +1,12 @@
-# Intention Extension
+# React Chrome Template
 
-Current version: Beta 1.0.0
+This is a starter template for React based Chrome extensions
+
+## Features
+- Simple React 16 implementation
+- Write modern JavaScript with Babel
+- Unit tests with Jest and Enzyme
+- Intuitive Webpack configuration
 
 ## Roadmap
-
-### 1.0.0
-
-- [ ] 90% coverage
-- [ ] Write a proper Readme
-- [ ] Flag debug utilities
-
-### 1.1.0
-
-- [ ] i18n
-- [ ] Focus mode, a new setting that forces you to only browse that tab
-- [ ] Default lists
-- [ ] Custom default timers
+- Chrome API tests with `sinon-chrome`

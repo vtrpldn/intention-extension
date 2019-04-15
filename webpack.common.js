@@ -5,12 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  mode: 'production',
   entry: {
     background: './src/js/background/index.js',
-    popup: './src/js/Popup.js',
-    options: './src/js/Options.js',
-    main: './src/js/App.js'
+    popup: './src/js/react/Popup.js',
+    options: './src/js/react/Options.js',
+    main: './src/js/react/App.js'
   },
   module: {
     rules: [
@@ -23,8 +22,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __DEV__: false,
-      __PROD__: true,
+      __DEV__: true,
+      __PROD__: false
     }),
     new CopyPlugin([
       { from: './src/manifest.json', to: '../manifest.json' },
@@ -32,12 +31,12 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({
       chunks: ['options'],
-      title: 'Options - Intension Ext',
+      title: 'Options',
       filename: '../html/options.html'
     }),
     new HtmlWebpackPlugin({
       chunks: ['popup'],
-      title: 'Popup - Intention Ext',
+      title: 'Popup',
       filename: '../html/popup.html'
     }),
     new CleanWebpackPlugin()
@@ -47,6 +46,6 @@ module.exports = {
     path: path.resolve(__dirname, 'build/js')
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'src/js'), 'node_modules']
+    modules: ['node_modules']
   }
 }
